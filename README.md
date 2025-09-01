@@ -1,5 +1,7 @@
 # <img src="m-icon.svg" alt="MVI" width="32" height="32" align="center"> Lucid MVI
 
+> A simple, elegant, and powerful MVI (Model-View-Intent) architecture framework for Android
+
 [![GitHub release](https://img.shields.io/github/v/release/greathousesh/Lucid-MVI)](https://github.com/greathousesh/Lucid-MVI/releases)
 [![JitPack](https://jitpack.io/v/greathousesh/Lucid-MVI.svg)](https://jitpack.io/#greathousesh/Lucid-MVI)
 [![Kotlin](https://img.shields.io/badge/kotlin-2.0.21-blue.svg?logo=kotlin)](https://kotlinlang.org)
@@ -9,268 +11,62 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Build Status](https://github.com/greathousesh/Lucid-MVI/workflows/Publish%20AAR%20to%20GitHub%20Packages/badge.svg)](https://github.com/greathousesh/Lucid-MVI/actions)
 
-<details>
-<summary><strong>🇨🇳 中文文档</strong></summary>
+## 🚀 Why Lucid MVI?
 
-## 简介
-
-一个简单而优雅的Android MVI (Model-View-Intent) 架构实现库。
-
-## ✨ 特性
-
-- 🏗️ **基于Kotlin协程** - 响应式架构，完全异步处理
-- 🔄 **清晰的单向数据流** - 可预测的状态管理
-- 🎯 **类型安全** - 编译时类型检查，减少运行时错误
-- 🧪 **易于测试** - 完整的单元测试覆盖
-- 📦 **轻量级** - 无额外依赖，仅16KB的AAR包
-- 🚀 **生产就绪** - 包含生命周期感知和线程安全特性
-
-## 📦 安装
-
-### 通过JitPack
-
-JitPack提供了最简单的安装方式，无需任何认证配置：
-
-#### 1. 添加JitPack仓库
-
-在你的项目根目录的 `build.gradle.kts` 文件中添加JitPack仓库：
+Lucid MVI brings **predictable state management** and **unidirectional data flow** to Android development. Built on Kotlin Coroutines, it provides a reactive, type-safe, and testable architecture that scales from simple counters to complex applications.
 
 ```kotlin
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url = uri("https://jitpack.io") }
-    }
-}
-```
+// Define your state, actions, and events
+data class CounterState(val count: Int = 0, val isLoading: Boolean = false)
+sealed class CounterAction { object Increment : CounterAction() }
+sealed class CounterEvent { object CountSaved : CounterEvent() }
 
-#### 2. 添加依赖
-
-在你的模块的 `build.gradle.kts` 文件中添加依赖：
-
-```kotlin
-dependencies {
-    implementation("com.github.greathousesh:Lucid-MVI:0.0.6")
-}
-```
-
-### 系统要求
-
-- **最小Android SDK**: API 24 (Android 7.0)
-- **目标SDK**: API 36
-- **Kotlin版本**: 2.0.21+
-
-## 📱 示例应用
-
-本项目包含一个完整的示例应用，展示了Lucid MVI在不同场景下的应用：
-
-### 🏠 HomeActivity - 导航首页
-- 统一的入口界面，展示所有可用示例
-- Material 3 设计，响应式布局
-- 清晰的导航卡片，一键跳转到各个示例
-
-### 🧮 CounterActivity - 基础计数器 (传统View)
-- **技术栈**: 传统Android View + ViewBinding
-- **功能**: 基础的增减、重置、保存操作
-- **特点**: 展示MVI在传统View系统中的应用
-- **适合**: 了解MVI基础概念和传统Android开发
-
-### 📱 CounterComposeActivity - 现代计数器 (Jetpack Compose)
-- **技术栈**: Jetpack Compose + Material 3
-- **功能**: 与传统版本相同的计数器功能
-- **特点**: 现代化UI，响应式设计，优雅的状态管理
-- **适合**: 学习Compose与MVI的结合使用
-
-### ✅ TodoActivity - 待办事项管理
-- **技术栈**: Jetpack Compose + 复杂状态管理
-- **功能**: 
-  - ✨ 添加、编辑、删除待办事项
-  - ☑️ 切换完成状态
-  - 🔍 按状态过滤（全部/活跃/已完成）
-  - 📊 实时统计信息
-  - 🧹 批量清除已完成项目
-- **特点**: 展示复杂业务逻辑和CRUD操作
-- **适合**: 理解MVI在实际项目中的应用
-
-### 🎯 运行示例应用
-
-1. 克隆项目并打开Android Studio
-2. 运行app模块
-3. 从首页选择你感兴趣的示例
-4. 体验不同复杂度的MVI实现
-
-## 🚀 快速开始
-
-### 1. 定义你的MVI组件
-
-```kotlin
-// 状态
-data class CounterState(
-    val count: Int = 0,
-    val isLoading: Boolean = false
-)
-
-// 动作
-sealed class CounterAction {
-    object Increment : CounterAction()
-    object Decrement : CounterAction()
-    object Reset : CounterAction()
-}
-
-// 副作用
-sealed class CounterEffect {
-    object SaveCount : CounterEffect()
-}
-
-// 事件
-sealed class CounterEvent {
-    object CountSaved : CounterEvent()
-    data class ShowError(val message: String) : CounterEvent()
-}
-```
-
-### 2. 实现Reducer和EffectHandler
-
-```kotlin
-class CounterReducer : StateReducer<CounterState, CounterAction> {
-    override fun reduce(state: CounterState, action: CounterAction): CounterState {
-        return when (action) {
-            is CounterAction.Increment -> state.copy(count = state.count + 1)
-            is CounterAction.Decrement -> state.copy(count = state.count - 1)
-            is CounterAction.Reset -> state.copy(count = 0)
-        }
-    }
-}
-
-class CounterEffectHandler : EffectHandler<CounterState, CounterAction, CounterEffect, CounterEvent> {
-    override suspend fun handle(
-        state: CounterState,
-        effect: CounterEffect,
-        dispatch: suspend (CounterAction) -> Unit,
-        emit: suspend (CounterEvent) -> Unit
-    ) {
-        when (effect) {
-            is CounterEffect.SaveCount -> {
-                try {
-                    // 保存计数逻辑
-                    emit(CounterEvent.CountSaved)
-                } catch (e: Exception) {
-                    emit(CounterEvent.ShowError(e.message ?: "Unknown error"))
-                }
-            }
-        }
-    }
-}
-```
-
-### 3. 创建ViewModel
-
-```kotlin
+// Create your ViewModel
 class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEffect, CounterEvent>(
     reducer = CounterReducer(),
     effectHandler = CounterEffectHandler()
 ) {
-    override fun initialState(): CounterState = CounterState()
-    
+    override fun initialState() = CounterState()
     fun increment() = sendAction(CounterAction.Increment)
-    fun decrement() = sendAction(CounterAction.Decrement)
-    fun reset() = sendAction(CounterAction.Reset)
-    fun saveCount() = sendEffect(CounterEffect.SaveCount)
 }
 ```
 
-### 4. 在Activity/Fragment中使用
+## ✨ Key Features
 
-```kotlin
-class MainActivity : AppCompatActivity() {
-    private val viewModel: CounterViewModel by viewModels()
-    
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        
-        // 观察状态变化
-        lifecycleScope.launch {
-            viewModel.stateFlow.collect { state ->
-                updateUI(state)
-            }
-        }
-        
-        // 观察事件
-        lifecycleScope.launch {
-            viewModel.eventFlow.collect { event ->
-                handleEvent(event)
-            }
-        }
-        
-        // 发送动作
-        incrementButton.setOnClickListener {
-            viewModel.increment()
-        }
-    }
-}
-```
+| Feature | Description |
+|---------|-------------|
+| 🏗️ **Kotlin Coroutines Based** | Reactive architecture with fully asynchronous processing |
+| 🔄 **Unidirectional Data Flow** | Predictable state management, easy to debug |
+| 🎯 **Type Safe** | Compile-time type checking reduces runtime errors |
+| 🧪 **Easy to Test** | Pure functional reducers, predictable side effect handling |
+| 📦 **Lightweight** | No additional dependencies, < 20KB |
+| 🚀 **Production Ready** | Lifecycle awareness and thread safety built-in |
+| 📱 **Compose Ready** | First-class Jetpack Compose integration |
 
-## 🏗️ 架构概览
+## 📱 Demo Application
 
-```
-┌─────────────┐    Action    ┌─────────────┐    New State    ┌─────────────┐
-│     UI      │─────────────▶│  ViewModel  │────────────────▶│    State    │
-│             │              │             │                 │             │
-│             │◀─────────────│             │◀────────────────│             │
-└─────────────┘    Event     └─────────────┘                 └─────────────┘
-                                     │                               ▲
-                                     │ Effect                        │
-                                     ▼                               │
-                              ┌─────────────┐    Action              │
-                              │ EffectHandler│───────────────────────┘
-                              └─────────────┘
-```
+This repository includes a comprehensive demo app showcasing MVI in action:
 
-## 📈 路线图
+| Demo | Tech Stack | Complexity | Learning Focus |
+|------|------------|------------|----------------|
+| 🏠 **HomeActivity** | Material 3 Navigation | ⭐ | App structure & navigation |
+| 🧮 **CounterActivity** | Traditional Views | ⭐⭐ | MVI basics & state management |
+| 📱 **CounterComposeActivity** | Jetpack Compose | ⭐⭐⭐ | Modern UI with MVI |
+| ✅ **TodoActivity** | Complex State Logic | ⭐⭐⭐⭐ | Real-world MVI patterns |
 
-- [x] 支持Compose集成
-- [ ] 添加调试工具和日志
-- [ ] Kotlin Multiplatform支持
+### Screenshots
+<p align="center">
+  <img src="https://via.placeholder.com/200x400/4285F4/FFFFFF?text=Home" alt="Home" width="180"/>
+  <img src="https://via.placeholder.com/200x400/FF6B35/FFFFFF?text=Counter" alt="Counter" width="180"/>
+  <img src="https://via.placeholder.com/200x400/4CAF50/FFFFFF?text=Compose" alt="Compose" width="180"/>
+  <img src="https://via.placeholder.com/200x400/9C27B0/FFFFFF?text=Todo" alt="Todo" width="180"/>
+</p>
 
-## ❓ 常见问题
+## 🛠️ Installation
 
-**Q: 如何处理复杂的异步操作？**  
-A: 使用EffectHandler处理所有副作用，保持Reducer的纯函数特性。
+### Method 1: JitPack (Recommended)
 
-**Q: 如何与现有的ViewModel集成？**  
-A: BaseMVIViewModel继承自ViewModel，可以直接替换现有的ViewModel。
-
-**Q: 性能如何？**  
-A: 库非常轻量级（仅16KB），基于Kotlin协程，性能优异。
-
-</details>
-
-<details open>
-<summary><strong>🇺🇸 English Documentation</strong></summary>
-
-## Introduction
-
-A simple and elegant MVI (Model-View-Intent) architecture implementation library for Android.
-
-## ✨ Features
-
-- 🏗️ **Kotlin Coroutines Based** - Reactive architecture with fully asynchronous processing
-- 🔄 **Clear Unidirectional Data Flow** - Predictable state management
-- 🎯 **Type Safe** - Compile-time type checking reduces runtime errors
-- 🧪 **Easy to Test** - Complete unit test coverage
-- 📦 **Lightweight** - No additional dependencies, only 16KB AAR package
-- 🚀 **Production Ready** - Includes lifecycle awareness and thread safety features
-
-## 📦 Installation
-
-### Via JitPack
-
-JitPack provides the simplest installation method with no authentication configuration required:
-
-#### 1. Add JitPack Repository
-
-Add the JitPack repository to your project's root `build.gradle.kts` file:
+Add JitPack repository to your project's `build.gradle.kts`:
 
 ```kotlin
 allprojects {
@@ -282,9 +78,7 @@ allprojects {
 }
 ```
 
-#### 2. Add Dependency
-
-Add the dependency to your module's `build.gradle.kts` file:
+Add dependency to your module's `build.gradle.kts`:
 
 ```kotlin
 dependencies {
@@ -292,75 +86,35 @@ dependencies {
 }
 ```
 
-### System Requirements
+### Method 2: GitHub Packages
 
-- **Minimum Android SDK**: API 24 (Android 7.0)
-- **Target SDK**: API 36
-- **Kotlin Version**: 2.0.21+
+See [GitHub Packages setup guide](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry) for authentication.
 
-## 📱 Demo Application
-
-This project includes a comprehensive demo application showcasing Lucid MVI in different scenarios:
-
-### 🏠 HomeActivity - Navigation Hub
-- Unified entry interface displaying all available examples
-- Material 3 design with responsive layout
-- Clear navigation cards for one-click access to each demo
-
-### 🧮 CounterActivity - Basic Counter (Traditional Views)
-- **Tech Stack**: Traditional Android Views + ViewBinding
-- **Features**: Basic increment, decrement, reset, and save operations
-- **Highlights**: Demonstrates MVI in traditional View system
-- **Best For**: Understanding MVI basics and traditional Android development
-
-### 📱 CounterComposeActivity - Modern Counter (Jetpack Compose)
-- **Tech Stack**: Jetpack Compose + Material 3
-- **Features**: Same counter functionality as traditional version
-- **Highlights**: Modern UI, reactive design, elegant state management
-- **Best For**: Learning Compose integration with MVI
-
-### ✅ TodoActivity - Todo List Management
-- **Tech Stack**: Jetpack Compose + Complex State Management
-- **Features**: 
-  - ✨ Add, edit, delete todo items
-  - ☑️ Toggle completion status
-  - 🔍 Filter by status (All/Active/Completed)
-  - 📊 Real-time statistics
-  - 🧹 Batch clear completed items
-- **Highlights**: Demonstrates complex business logic and CRUD operations
-- **Best For**: Understanding MVI in real-world applications
-
-### 🎯 Running the Demo App
-
-1. Clone the project and open in Android Studio
-2. Run the app module
-3. Select the example you're interested in from the home screen
-4. Experience different levels of MVI implementation complexity
-
-## 🚀 Quick Start
+## ⚡ Quick Start
 
 ### 1. Define Your MVI Components
 
 ```kotlin
-// State
+// State - represents your app's state at any moment
 data class CounterState(
     val count: Int = 0,
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val error: String? = null
 )
 
-// Actions
+// Actions - represent user intents
 sealed class CounterAction {
     object Increment : CounterAction()
     object Decrement : CounterAction()
     object Reset : CounterAction()
 }
 
-// Effects
+// Effects - represent side effects (async operations)
 sealed class CounterEffect {
     object SaveCount : CounterEffect()
 }
 
-// Events
+// Events - represent one-time UI events
 sealed class CounterEvent {
     object CountSaved : CounterEvent()
     data class ShowError(val message: String) : CounterEvent()
@@ -373,9 +127,9 @@ sealed class CounterEvent {
 class CounterReducer : StateReducer<CounterState, CounterAction> {
     override fun reduce(state: CounterState, action: CounterAction): CounterState {
         return when (action) {
-            is CounterAction.Increment -> state.copy(count = state.count + 1)
-            is CounterAction.Decrement -> state.copy(count = state.count - 1)
-            is CounterAction.Reset -> state.copy(count = 0)
+            CounterAction.Increment -> state.copy(count = state.count + 1)
+            CounterAction.Decrement -> state.copy(count = state.count - 1)
+            CounterAction.Reset -> state.copy(count = 0)
         }
     }
 }
@@ -388,9 +142,10 @@ class CounterEffectHandler : EffectHandler<CounterState, CounterAction, CounterE
         emit: suspend (CounterEvent) -> Unit
     ) {
         when (effect) {
-            is CounterEffect.SaveCount -> {
+            CounterEffect.SaveCount -> {
                 try {
-                    // Save count logic
+                    // Simulate API call
+                    delay(1000)
                     emit(CounterEvent.CountSaved)
                 } catch (e: Exception) {
                     emit(CounterEvent.ShowError(e.message ?: "Unknown error"))
@@ -410,6 +165,7 @@ class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEf
 ) {
     override fun initialState(): CounterState = CounterState()
     
+    // Public API
     fun increment() = sendAction(CounterAction.Increment)
     fun decrement() = sendAction(CounterAction.Decrement)
     fun reset() = sendAction(CounterAction.Reset)
@@ -417,118 +173,198 @@ class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEf
 }
 ```
 
-### 4. Use in Activity/Fragment
+### 4. Use in UI
+
+<details>
+<summary><strong>🎨 Jetpack Compose (Recommended)</strong></summary>
 
 ```kotlin
-class MainActivity : AppCompatActivity() {
-    private val viewModel: CounterViewModel by viewModels()
+@Composable
+fun CounterScreen(viewModel: CounterViewModel = viewModel()) {
+    val state by viewModel.stateFlow.collectAsStateWithLifecycle()
+    val context = LocalContext.current
     
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        
-        // Observe state changes
-        lifecycleScope.launch {
-            viewModel.stateFlow.collect { state ->
-                updateUI(state)
+    // Handle one-time events
+    LaunchedEffect(viewModel) {
+        viewModel.eventFlow.collect { event ->
+            when (event) {
+                CounterEvent.CountSaved -> {
+                    Toast.makeText(context, "Count saved!", Toast.LENGTH_SHORT).show()
+                }
+                is CounterEvent.ShowError -> {
+                    Toast.makeText(context, event.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
+    }
+    
+    // UI
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Text(
+            text = state.count.toString(),
+            style = MaterialTheme.typography.headlineLarge
+        )
         
-        // Observe events
-        lifecycleScope.launch {
-            viewModel.eventFlow.collect { event ->
-                handleEvent(event)
-            }
+        Row {
+            Button(onClick = viewModel::decrement) { Text("-") }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = viewModel::increment) { Text("+") }
         }
         
-        // Send actions
-        incrementButton.setOnClickListener {
-            viewModel.increment()
+        Button(
+            onClick = viewModel::reset,
+            modifier = Modifier.padding(top = 16.dp)
+        ) {
+            Text("Reset")
+        }
+        
+        if (state.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.padding(top = 16.dp))
         }
     }
 }
 ```
 
-## 🏗️ Architecture Overview
+</details>
+
+<details>
+<summary><strong>🎭 Traditional Views</strong></summary>
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+    private val viewModel: CounterViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
+        setupUI()
+        observeState()
+        observeEvents()
+    }
+    
+    private fun setupUI() {
+        binding.incrementButton.setOnClickListener { viewModel.increment() }
+        binding.decrementButton.setOnClickListener { viewModel.decrement() }
+        binding.resetButton.setOnClickListener { viewModel.reset() }
+    }
+    
+    private fun observeState() {
+        lifecycleScope.launch {
+            viewModel.stateFlow.collect { state ->
+                binding.countText.text = state.count.toString()
+                binding.progressBar.isVisible = state.isLoading
+            }
+        }
+    }
+    
+    private fun observeEvents() {
+        lifecycleScope.launch {
+            viewModel.eventFlow.collect { event ->
+                when (event) {
+                    CounterEvent.CountSaved -> {
+                        Toast.makeText(this@MainActivity, "Count saved!", Toast.LENGTH_SHORT).show()
+                    }
+                    is CounterEvent.ShowError -> {
+                        Toast.makeText(this@MainActivity, event.message, Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+</details>
+
+## 🏗️ Architecture
+
+Lucid MVI follows a strict unidirectional data flow:
 
 ```
-┌─────────────┐    Action    ┌─────────────┐    New State    ┌─────────────┐
-│     UI      │─────────────▶│  ViewModel  │────────────────▶│    State    │
-│             │              │             │                 │             │
-│             │◀─────────────│             │◀────────────────│             │
-└─────────────┘    Event     └─────────────┘                 └─────────────┘
-                                     │                               ▲
-                                     │ Effect                        │
-                                     ▼                               │
-                              ┌─────────────┐    Action              │
-                              │ EffectHandler│───────────────────────┘
-                              └─────────────┘
+┌─────────────┐    Action     ┌──────────────┐    New State    ┌─────────────┐
+│     UI      │──────────────▶│   ViewModel  │────────────────▶│    State    │
+│             │               │              │                 │             │
+│             │◀──────────────│              │◀────────────────│             │
+└─────────────┘    Event      └──────────────┘                 └─────────────┘
+                                      │                                ▲
+                                      │ Effect                         │
+                                      ▼                                │
+                               ┌──────────────┐     Action             │
+                               │ EffectHandler│────────────────────────┘
+                               └──────────────┘
 ```
 
 ## 📈 Roadmap
 
-- [x] Compose integration support
+- [x] ~~Compose integration support~~
 - [ ] Debug tools and logging
 - [ ] Kotlin Multiplatform support
-
-## ❓ FAQ
-
-**Q: How to handle complex asynchronous operations?**  
-A: Use EffectHandler to handle all side effects, keeping the Reducer as a pure function.
-
-**Q: How to integrate with existing ViewModels?**  
-A: BaseMVIViewModel inherits from ViewModel and can directly replace existing ViewModels.
-
-**Q: How is the performance?**  
-A: The library is very lightweight (only 16KB), based on Kotlin coroutines, with excellent performance.
-
-</details>
-
----
-
-## 🧪 Testing
-
-The library includes a complete test suite to ensure code quality and stability:
-
-```bash
-# Run unit tests
-./gradlew :mvi:test
-
-# Run Android integration tests
-./gradlew :mvi:connectedAndroidTest
-```
+- [ ] State persistence helpers
+- [ ] Testing utilities
+- [ ] Performance monitoring tools
 
 ## 📚 Documentation
 
-- 🚀 [GitHub Actions](https://github.com/greathousesh/Lucid-MVI/actions) - Automated build and publishing
-- 📦 [JitPack](https://jitpack.io/#greathousesh/Lucid-MVI) - Package distribution platform
+- 📖 [**Complete Wiki**](WIKI.md) - Comprehensive framework documentation
+- 🎯 [**Quick Start Guide**](#quick-start) - Get up and running in 5 minutes
+- 🏗️ [**Architecture Guide**](WIKI.md#architecture-deep-dive) - Deep dive into MVI patterns
+- 🧪 [**Testing Guide**](WIKI.md#best-practices) - Best practices for testing MVI
+- 📱 [**Compose Integration**](WIKI.md#quick-start) - Modern UI with Jetpack Compose
 
 ## 🤝 Contributing
 
-We welcome community contributions! Please follow these steps:
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-1. Fork this repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+### Development Setup
 
-### Development Environment Requirements
-- Android Studio Arctic Fox or higher
-- JDK 11 or higher
-- Android SDK API 24+
+1. Clone the repository
+2. Open in Android Studio Arctic Fox or later
+3. Run `./gradlew check` to verify setup
+4. Run the demo app to see examples
 
-## 📊 Library Information
+### Areas for Contribution
 
-- 📦 **Package Size**: 16KB AAR
-- 📱 **Supported Platforms**: Android API 24+
-- 🔧 **Dependencies**: Android standard library only
-- ⭐ **GitHub Stars**: [Give us a Star!](https://github.com/greathousesh/Lucid-MVI)
+- 📖 Documentation improvements
+- 🐛 Bug fixes and performance optimizations
+- ✨ New features and enhancements
+- 🧪 Additional testing utilities
+- 📱 More demo examples
 
-## 🔗 Related Links
+## 💡 Why MVI?
 
-- [MVI Architecture Pattern Introduction](https://hannesdorfmann.com/android/model-view-intent/)
-- [Kotlin Coroutines Official Documentation](https://kotlinlang.org/docs/coroutines-overview.html)
-- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture)
+| Benefit | Description |
+|---------|-------------|
+| **Predictable** | State changes are always triggered by actions, making the app behavior predictable |
+| **Debuggable** | Unidirectional data flow makes it easy to trace bugs and understand state changes |
+| **Testable** | Pure functions and clear separation of concerns make testing straightforward |
+| **Scalable** | Handles complex state management and async operations elegantly |
+| **Maintainable** | Clear architecture patterns make code easy to understand and modify |
+
+## 📊 Comparison
+
+| Feature | Lucid MVI | Redux | MvRx | Mobius |
+|---------|-----------|-------|------|--------|
+| **Learning Curve** | ⭐⭐ Easy | ⭐⭐⭐ Moderate | ⭐⭐⭐⭐ Hard | ⭐⭐⭐ Moderate |
+| **Boilerplate** | ⭐⭐⭐⭐ Minimal | ⭐⭐ Some | ⭐⭐⭐ Moderate | ⭐⭐ Some |
+| **Type Safety** | ⭐⭐⭐⭐⭐ Full | ⭐⭐⭐ Good | ⭐⭐⭐⭐⭐ Full | ⭐⭐⭐⭐ Very Good |
+| **Async Handling** | ⭐⭐⭐⭐⭐ Excellent | ⭐⭐⭐ Good | ⭐⭐⭐⭐ Very Good | ⭐⭐⭐⭐ Very Good |
+| **Compose Support** | ⭐⭐⭐⭐⭐ Native | ⭐⭐⭐ Good | ⭐⭐⭐⭐ Very Good | ⭐⭐ Limited |
+| **Bundle Size** | ⭐⭐⭐⭐⭐ < 20KB | ⭐⭐⭐ ~50KB | ⭐⭐ ~100KB | ⭐⭐⭐ ~40KB |
+
+## ⚙️ Requirements
+
+- **Minimum SDK**: API 24 (Android 7.0)
+- **Target SDK**: API 36
+- **Kotlin**: 2.0.21+
+- **Coroutines**: 1.9.0+
+- **Compose**: 1.7.6+ (optional)
 
 ## 📄 License
 
@@ -548,4 +384,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-</details>
+## 🌟 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=greathousesh/Lucid-MVI&type=Date)](https://star-history.com/#greathousesh/Lucid-MVI&Date)
+
+---
+
+<p align="center">
+  <strong>Built with ❤️ for the Android community</strong><br>
+  <a href="https://github.com/greathousesh/Lucid-MVI/issues">Report Issues</a> •
+  <a href="https://github.com/greathousesh/Lucid-MVI/discussions">Join Discussions</a> •
+  <a href="https://github.com/greathousesh/Lucid-MVI/wiki">Read Wiki</a>
+</p>
