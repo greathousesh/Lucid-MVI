@@ -92,7 +92,17 @@ class TodoViewModel : BaseMVIViewModel<TodoState, TodoAction, TodoEffect, TodoEv
     
     // Time Travel Debugging Methods
     fun getTimeTravelMiddleware(): TimeTravelMiddleware<TodoState, TodoAction>? {
-        return getMiddleware() as? TimeTravelMiddleware<TodoState, TodoAction>
+        val middleware = getMiddleware()
+        return when (middleware) {
+            is TimeTravelMiddleware<*, *> -> middleware as TimeTravelMiddleware<TodoState, TodoAction>
+            is com.greathouse.mvi.MiddlewareChain<*, *> -> {
+                val chain = middleware as com.greathouse.mvi.MiddlewareChain<TodoState, TodoAction>
+                chain.getMiddlewares().firstNotNullOfOrNull { 
+                    it as? TimeTravelMiddleware<TodoState, TodoAction>
+                }
+            }
+            else -> null
+        }
     }
     
     fun stepBack(): TodoState? {

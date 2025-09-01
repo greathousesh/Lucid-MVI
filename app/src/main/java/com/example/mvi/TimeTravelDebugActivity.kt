@@ -42,11 +42,15 @@ class TimeTravelDebugActivity : AppCompatActivity() {
         
         // Setup buttons
         binding.btnStepBack.setOnClickListener {
-            viewModel.stepBack()
+            android.util.Log.d("TimeTravelDebug", "Step back clicked")
+            val result = viewModel.stepBack()
+            android.util.Log.d("TimeTravelDebug", "Step back result: $result")
         }
         
         binding.btnStepForward.setOnClickListener {
-            viewModel.stepForward()
+            android.util.Log.d("TimeTravelDebug", "Step forward clicked")
+            val result = viewModel.stepForward()
+            android.util.Log.d("TimeTravelDebug", "Step forward result: $result")
         }
         
         binding.btnClearHistory.setOnClickListener {
@@ -79,6 +83,13 @@ class TimeTravelDebugActivity : AppCompatActivity() {
             }
         }
         
+        // Observe time travel current index changes
+        lifecycleScope.launch {
+            viewModel.getTimeTravelMiddleware()?.currentIndex?.collect {
+                updateHistoryDisplay()
+            }
+        }
+        
         lifecycleScope.launch {
             viewModel.eventFlow.collect { event ->
                 when (event) {
@@ -107,14 +118,18 @@ class TimeTravelDebugActivity : AppCompatActivity() {
     }
     
     private fun updateHistoryDisplay() {
+        val timeTravelMiddleware = viewModel.getTimeTravelMiddleware()
         val history = viewModel.getHistory()
-        val currentIndex = viewModel.getTimeTravelMiddleware()?.currentIndex?.value ?: -1
+        val currentIndex = timeTravelMiddleware?.currentIndex?.value ?: -1
+        
+        android.util.Log.d("TimeTravelDebug", "updateHistoryDisplay: middleware=$timeTravelMiddleware, history.size=${history.size}, currentIndex=$currentIndex")
         
         historyAdapter.updateHistory(history, currentIndex)
         
         binding.textHistoryInfo.text = """
             History: ${history.size} states
             Current Index: $currentIndex
+            Middleware: ${if (timeTravelMiddleware != null) "Found" else "Not Found"}
         """.trimIndent()
         
         // Update button states
