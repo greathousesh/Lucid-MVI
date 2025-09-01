@@ -37,32 +37,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:baselineAligned="false">
 
         <Button
             android:id="@+id/btnAddTodo"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:text="Add Todo"
-            android:layout_marginEnd="4dp" />
+            android:layout_marginEnd="4dp"
+            android:layout_gravity="center_vertical" />
 
         <Button
             android:id="@+id/btnToggleFirst"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:text="Toggle First"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp" />
+            android:layout_marginEnd="4dp"
+            android:layout_gravity="center_vertical" />
 
         <Button
             android:id="@+id/btnDeleteFirst"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:text="Delete First"
-            android:layout_marginStart="4dp" />
+            android:layout_marginStart="4dp"
+            android:layout_gravity="center_vertical" />
 
     </LinearLayout>
 
@@ -78,32 +82,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        android:baselineAligned="false">
 
         <Button
             android:id="@+id/btnStepBack"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:text="◀ Step Back"
-            android:layout_marginEnd="4dp" />
+            android:layout_marginEnd="4dp"
+            android:layout_gravity="center_vertical" />
 
         <Button
             android:id="@+id/btnStepForward"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:text="Step Forward ▶"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp" />
+            android:layout_marginEnd="4dp"
+            android:layout_gravity="center_vertical" />
 
         <Button
             android:id="@+id/btnClearHistory"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:text="Clear History"
-            android:layout_marginStart="4dp" />
+            android:layout_marginStart="4dp"
+            android:layout_gravity="center_vertical" />
 
     </LinearLayout>
 
