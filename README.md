@@ -56,10 +56,10 @@ This repository includes a comprehensive demo app showcasing MVI in action:
 
 ### Screenshots
 <p align="center">
-  <img src="https://via.placeholder.com/200x400/4285F4/FFFFFF?text=Home" alt="Home" width="180"/>
-  <img src="https://via.placeholder.com/200x400/FF6B35/FFFFFF?text=Counter" alt="Counter" width="180"/>
-  <img src="https://via.placeholder.com/200x400/4CAF50/FFFFFF?text=Compose" alt="Compose" width="180"/>
-  <img src="https://via.placeholder.com/200x400/9C27B0/FFFFFF?text=Todo" alt="Todo" width="180"/>
+  <img src="Screenshot_20250901_145036.png" alt="Home Activity - Navigation Hub" width="180"/>
+  <img src="Screenshot_20250901_145044.png" alt="Counter Activity - Traditional Views" width="180"/>
+  <img src="Screenshot_20250901_145053.png" alt="Counter Compose Activity - Modern UI" width="180"/>
+  <img src="Screenshot_20250901_145103.png" alt="Todo Activity - Complex State Management" width="180"/>
 </p>
 
 ## 🛠️ Installation
