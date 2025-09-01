@@ -1,10 +1,4 @@
-# Lucid MVI SDK for Android
-
-<img src="m-icon.svg" alt="MVI" width="64" height="64" align="left">
-
-This is the Android SDK for **Lucid MVI**, a lightweight, reactive, and type-safe MVI (Model-View-Intent) architecture framework designed for modern Android development.
-
-It provides managed integration with reactive state management, predictable unidirectional data flow, and comprehensive support for both traditional Views and Jetpack Compose.
+# <img src="m-icon.svg" alt="MVI" width="32" height="32" align="center"> Lucid-MVI
 
 [![GitHub release](https://img.shields.io/github/v/release/greathousesh/Lucid-MVI)](https://github.com/greathousesh/Lucid-MVI/releases)
 [![JitPack](https://jitpack.io/v/greathousesh/Lucid-MVI.svg)](https://jitpack.io/#greathousesh/Lucid-MVI)
@@ -15,7 +9,9 @@ It provides managed integration with reactive state management, predictable unid
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Build Status](https://github.com/greathousesh/Lucid-MVI/workflows/Publish%20AAR%20to%20GitHub%20Packages/badge.svg)](https://github.com/greathousesh/Lucid-MVI/actions)
 
-<br clear="left"/>
+This is the Android SDK for **Lucid MVI**, a lightweight, reactive, and type-safe MVI (Model-View-Intent) architecture framework designed for modern Android development.
+
+It provides managed integration with reactive state management, predictable unidirectional data flow, and comprehensive support for both traditional Views and Jetpack Compose.
 
 **Functionalities:**
 
