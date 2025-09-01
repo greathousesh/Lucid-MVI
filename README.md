@@ -1,9 +1,9 @@
 # <img src="m-icon.svg" alt="MVI" width="32" height="32" align="center"> Lucid MVI
 
-[![GitHub release](https://img.shields.io/github/v/release/greathousesh/Simple-MVI)](https://github.com/greathousesh/Simple-MVI/releases)
-[![JitPack](https://jitpack.io/v/greathousesh/Simple-MVI.svg)](https://jitpack.io/#greathousesh/Simple-MVI)
+[![GitHub release](https://img.shields.io/github/v/release/greathousesh/Lucid-MVI)](https://github.com/greathousesh/Lucid-MVI/releases)
+[![JitPack](https://jitpack.io/v/greathousesh/Lucid-MVI.svg)](https://jitpack.io/#greathousesh/Lucid-MVI)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Build Status](https://github.com/greathousesh/Simple-MVI/workflows/Publish%20AAR%20to%20GitHub%20Packages/badge.svg)](https://github.com/greathousesh/Simple-MVI/actions)
+[![Build Status](https://github.com/greathousesh/Lucid-MVI/workflows/Publish%20AAR%20to%20GitHub%20Packages/badge.svg)](https://github.com/greathousesh/Lucid-MVI/actions)
 
 <details>
 <summary><strong>🇨🇳 中文文档</strong></summary>
@@ -417,8 +417,8 @@ The library includes a complete test suite to ensure code quality and stability:
 
 ## 📚 Documentation
 
-- 🚀 [GitHub Actions](https://github.com/greathousesh/Simple-MVI/actions) - Automated build and publishing
-- 📦 [JitPack](https://jitpack.io/#greathousesh/Simple-MVI) - Package distribution platform
+- 🚀 [GitHub Actions](https://github.com/greathousesh/Lucid-MVI/actions) - Automated build and publishing
+- 📦 [JitPack](https://jitpack.io/#greathousesh/Lucid-MVI) - Package distribution platform
 
 ## 🤝 Contributing
 
@@ -440,7 +440,7 @@ We welcome community contributions! Please follow these steps:
 - 📦 **Package Size**: 16KB AAR
 - 📱 **Supported Platforms**: Android API 24+
 - 🔧 **Dependencies**: Android standard library only
-- ⭐ **GitHub Stars**: [Give us a Star!](https://github.com/greathousesh/Simple-MVI)
+- ⭐ **GitHub Stars**: [Give us a Star!](https://github.com/greathousesh/Lucid-MVI)
 
 ## 🔗 Related Links
 
@@ -467,68 +467,3 @@ limitations under the License.
 ```
 
 </details>
-
----
-
-## 🧪 Testing
-
-The library includes a complete test suite to ensure code quality and stability:
-
-```bash
-# Run unit tests
-./gradlew :mvi:test
-
-# Run Android integration tests
-./gradlew :mvi:connectedAndroidTest
-```
-
-## 📚 Documentation
-
-- 🚀 [GitHub Actions](https://github.com/greathousesh/Simple-MVI/actions) - Automated build and publishing
-- 📦 [JitPack](https://jitpack.io/#greathousesh/Simple-MVI) - Package distribution platform
-
-## 🤝 Contributing
-
-We welcome community contributions! Please follow these steps:
-
-1. Fork this repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### Development Environment Requirements
-- Android Studio Arctic Fox or higher
-- JDK 11 or higher
-- Android SDK API 24+
-
-## 📊 Library Information
-
-- 📦 **Package Size**: 16KB AAR
-- 📱 **Supported Platforms**: Android API 24+
-- 🔧 **Dependencies**: Android standard library only
-- ⭐ **GitHub Stars**: [Give us a Star!](https://github.com/greathousesh/Simple-MVI)
-
-## 🔗 Related Links
-
-- [MVI Architecture Pattern Introduction](https://hannesdorfmann.com/android/model-view-intent/)
-- [Kotlin Coroutines Official Documentation](https://kotlinlang.org/docs/coroutines-overview.html)
-- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture)
-
-## 📄 License
-
-```
-Copyright 2024 Fang Wei
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
