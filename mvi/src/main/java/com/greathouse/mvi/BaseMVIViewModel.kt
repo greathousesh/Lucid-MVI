@@ -61,11 +61,8 @@ abstract class BaseMVIViewModel<State, Action, Effect, Event>(
     }
 
     protected suspend fun setState(reducer: State.() -> State) {
-        val oldState = latestState
-        val newState = oldState.reducer()
-        if (oldState != newState) {
-            _stateFlow.emit(newState)
-        }
+        val newState = latestState.reducer()
+        _stateFlow.emit(newState)
     }
 
     fun sendAction(action: Action) {
