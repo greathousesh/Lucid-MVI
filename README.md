@@ -261,9 +261,9 @@ class MainActivity : AppCompatActivity() {
                 binding.countText.text = state.count.toString()
                 binding.progressBar.isVisible = state.isLoading
             }
+            }
         }
-    }
-    
+        
     private fun observeEvents() {
         lifecycleScope.launch {
             viewModel.eventFlow.collect { event ->
@@ -347,16 +347,6 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 | **Scalable** | Handles complex state management and async operations elegantly |
 | **Maintainable** | Clear architecture patterns make code easy to understand and modify |
 
-## 📊 Comparison
-
-| Feature | Lucid MVI | Redux | MvRx | Mobius |
-|---------|-----------|-------|------|--------|
-| **Learning Curve** | ⭐⭐ Easy | ⭐⭐⭐ Moderate | ⭐⭐⭐⭐ Hard | ⭐⭐⭐ Moderate |
-| **Boilerplate** | ⭐⭐⭐⭐ Minimal | ⭐⭐ Some | ⭐⭐⭐ Moderate | ⭐⭐ Some |
-| **Type Safety** | ⭐⭐⭐⭐⭐ Full | ⭐⭐⭐ Good | ⭐⭐⭐⭐⭐ Full | ⭐⭐⭐⭐ Very Good |
-| **Async Handling** | ⭐⭐⭐⭐⭐ Excellent | ⭐⭐⭐ Good | ⭐⭐⭐⭐ Very Good | ⭐⭐⭐⭐ Very Good |
-| **Compose Support** | ⭐⭐⭐⭐⭐ Native | ⭐⭐⭐ Good | ⭐⭐⭐⭐ Very Good | ⭐⭐ Limited |
-| **Bundle Size** | ⭐⭐⭐⭐⭐ < 20KB | ⭐⭐⭐ ~50KB | ⭐⭐ ~100KB | ⭐⭐⭐ ~40KB |
 
 ## ⚙️ Requirements
 
