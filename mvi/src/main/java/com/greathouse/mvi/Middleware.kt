@@ -50,6 +50,11 @@ class MiddlewareChain<State, Action>(
     private val middlewares: List<Middleware<State, Action>>
 ) : Middleware<State, Action> {
     
+    /**
+     * Get the list of middlewares in this chain.
+     */
+    fun getMiddlewares(): List<Middleware<State, Action>> = middlewares
+    
     override suspend fun process(
         currentState: State,
         action: Action,

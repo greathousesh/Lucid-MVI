@@ -42,6 +42,9 @@ abstract class BaseMVIViewModel<State, Action, Effect, Event>(
                 handleEffect(effect)
             }
         }
+        
+        // Setup time travel middleware if available
+        setupTimeTravelMiddleware()
     }
 
     protected abstract fun initialState(): State
@@ -84,6 +87,37 @@ abstract class BaseMVIViewModel<State, Action, Effect, Event>(
      * Useful for accessing middleware-specific functionality like time travel debugging.
      */
     fun getMiddleware(): Middleware<State, Action>? = middleware
+    
+    /**
+     * Setup time travel middleware if available.
+     */
+    private fun setupTimeTravelMiddleware() {
+        val timeTravelMiddleware = findTimeTravelMiddleware(middleware)
+        timeTravelMiddleware?.let { ttm ->
+            ttm.setStateRestoreCallback { state ->
+                viewModelScope.launch {
+                    _stateFlow.emit(state)
+                }
+            }
+            // Record initial state
+            ttm.recordInitialState(initialState())
+        }
+    }
+    
+    /**
+     * Recursively find TimeTravelMiddleware in the middleware chain.
+     */
+    private fun findTimeTravelMiddleware(middleware: Middleware<State, Action>?): com.greathouse.mvi.middleware.TimeTravelMiddleware<State, Action>? {
+        return when (middleware) {
+            is com.greathouse.mvi.middleware.TimeTravelMiddleware<*, *> -> middleware as com.greathouse.mvi.middleware.TimeTravelMiddleware<State, Action>
+            is MiddlewareChain<*, *> -> {
+                // Search through the chain
+                val chain = middleware as MiddlewareChain<State, Action>
+                chain.getMiddlewares().firstNotNullOfOrNull { findTimeTravelMiddleware(it) }
+            }
+            else -> null
+        }
+    }
 
     override fun onCleared() {
         super.onCleared()

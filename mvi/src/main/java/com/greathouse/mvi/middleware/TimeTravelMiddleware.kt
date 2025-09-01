@@ -18,6 +18,7 @@ class TimeTravelMiddleware<State, Action>(
     private val _history = mutableListOf<StateSnapshot<State, Action>>()
     private val _currentIndex = MutableStateFlow(-1)
     private var _isReplaying = false
+    private var _onStateRestore: ((State) -> Unit)? = null
     
     val history: List<StateSnapshot<State, Action>> get() = _history.toList()
     val currentIndex: StateFlow<Int> = _currentIndex.asStateFlow()
@@ -65,6 +66,26 @@ class TimeTravelMiddleware<State, Action>(
     }
     
     /**
+     * Set the callback for state restoration.
+     * This should be called by the ViewModel to enable actual state updates.
+     */
+    fun setStateRestoreCallback(callback: (State) -> Unit) {
+        _onStateRestore = callback
+    }
+    
+    /**
+     * Record the initial state.
+     * This should be called by the ViewModel with the initial state.
+     */
+    fun recordInitialState(initialState: State) {
+        if (_history.isEmpty()) {
+            val snapshot = StateSnapshot<State, Action>(initialState, null)
+            _history.add(snapshot)
+            _currentIndex.value = 0
+        }
+    }
+    
+    /**
      * Jump to a specific state in the history.
      * 
      * @param index The index in the history to jump to
@@ -74,7 +95,9 @@ class TimeTravelMiddleware<State, Action>(
         if (index < 0 || index >= _history.size) return null
         
         _currentIndex.value = index
-        return _history[index].state
+        val state = _history[index].state
+        _onStateRestore?.invoke(state)
+        return state
     }
     
     /**

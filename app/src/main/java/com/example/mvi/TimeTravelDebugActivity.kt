@@ -33,7 +33,6 @@ class TimeTravelDebugActivity : AppCompatActivity() {
         // Setup history RecyclerView
         historyAdapter = HistoryAdapter { index ->
             viewModel.jumpToState(index)
-            updateHistoryDisplay()
         }
         
         binding.recyclerHistory.apply {
@@ -44,12 +43,10 @@ class TimeTravelDebugActivity : AppCompatActivity() {
         // Setup buttons
         binding.btnStepBack.setOnClickListener {
             viewModel.stepBack()
-            updateHistoryDisplay()
         }
         
         binding.btnStepForward.setOnClickListener {
             viewModel.stepForward()
-            updateHistoryDisplay()
         }
         
         binding.btnClearHistory.setOnClickListener {
