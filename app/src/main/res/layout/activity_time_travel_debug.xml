@@ -22,7 +22,7 @@
         android:background="@android:color/background_light"
         android:padding="12dp"
         android:text="Current State: Loading..."
-        android:textFamily="monospace"
+        android:typeface="monospace"
         android:layout_marginBottom="16dp" />
 
     <!-- Test Actions -->
@@ -113,7 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="History: 0 states"
-        android:textFamily="monospace"
+        android:typeface="monospace"
         android:layout_marginBottom="8dp" />
 
     <!-- History List -->

@@ -134,7 +134,7 @@ fun HomeScreen() {
             DemoCard(
                 title = "Time Travel Debug",
                 description = "Middleware showcase with time travel debugging",
-                icon = Icons.Default.History,
+                icon = Icons.Default.Refresh,
                 backgroundColor = MaterialTheme.colorScheme.errorContainer,
                 contentColor = MaterialTheme.colorScheme.onErrorContainer,
                 onClick = {

@@ -24,7 +24,7 @@ class LoggingMiddleware<State, Action>(
     ): State {
         val startTime = System.currentTimeMillis()
         
-        log("🎯 Action: ${action::class.simpleName} - $action")
+        log("🎯 Action: ${action!!::class.simpleName} - $action")
         
         if (logState) {
             log("📊 Current State: $currentState")
