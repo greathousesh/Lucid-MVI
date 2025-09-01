@@ -45,9 +45,9 @@ Lucid MVI is a lightweight, type-safe Android MVI (Model-View-Intent) architectu
 MVI (Model-View-Intent) is an architecture pattern inspired by functional programming, featuring:
 
 ```
-Intent → Model → View → Intent
-   ↑                    ↓
-   └────────────────────┘
+Intent → Model → View
+   ↑              ↓
+   └──────────────┘
 ```
 
 #### Core Principles
