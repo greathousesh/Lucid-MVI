@@ -1,6 +1,10 @@
-# <img src="m-icon.svg" alt="MVI" width="32" height="32" align="center"> Lucid MVI
+# Lucid MVI SDK for Android
 
-> A simple, elegant, and powerful MVI (Model-View-Intent) architecture framework for Android
+<img src="m-icon.svg" alt="MVI" width="64" height="64" align="left">
+
+This is the Android SDK for **Lucid MVI**, a lightweight, reactive, and type-safe MVI (Model-View-Intent) architecture framework designed for modern Android development.
+
+It provides managed integration with reactive state management, predictable unidirectional data flow, and comprehensive support for both traditional Views and Jetpack Compose.
 
 [![GitHub release](https://img.shields.io/github/v/release/greathousesh/Lucid-MVI)](https://github.com/greathousesh/Lucid-MVI/releases)
 [![JitPack](https://jitpack.io/v/greathousesh/Lucid-MVI.svg)](https://jitpack.io/#greathousesh/Lucid-MVI)
@@ -11,39 +15,109 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Build Status](https://github.com/greathousesh/Lucid-MVI/workflows/Publish%20AAR%20to%20GitHub%20Packages/badge.svg)](https://github.com/greathousesh/Lucid-MVI/actions)
 
-## 🚀 Why Lucid MVI?
+<br clear="left"/>
 
-Lucid MVI brings **predictable state management** and **unidirectional data flow** to Android development. Built on Kotlin Coroutines, it provides a reactive, type-safe, and testable architecture that scales from simple counters to complex applications.
+**Functionalities:**
+
+* 🏗️ **Managed integration** with reactive state management
+* 📦 **Lightweight architecture** with unidirectional data flow  
+* 🔄 **Automatic state synchronization** for predictable app behavior
+* 🧪 **Built-in testing support** with pure functional components
+* 📱 **Jetpack Compose ready** with first-class integration
+* ⚡ **Coroutines-based** async operations and effect handling
+
+## Usage
+
+### Adding the package dependency
+
+The latest release of the SDK is available on JitPack.
+
+Add the following dependency to your gradle file to use it:
 
 ```kotlin
-// Define your state, actions, and events
-data class CounterState(val count: Int = 0, val isLoading: Boolean = false)
-sealed class CounterAction { object Increment : CounterAction() }
-sealed class CounterEvent { object CountSaved : CounterEvent() }
+implementation("com.github.greathousesh:Lucid-MVI:0.0.6")
+```
 
-// Create your ViewModel
-class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEffect, CounterEvent>(
+Where `0.0.6` is the most recent version of this SDK.
+
+Released versions can be found under "Releases" within this repository.
+
+### Creating the Lucid MVI instance
+
+You can create your MVI components using the `BaseMVIViewModel` class like this:
+
+```kotlin
+val viewModel = CounterViewModel(
     reducer = CounterReducer(),
     effectHandler = CounterEffectHandler()
-) {
-    override fun initialState() = CounterState()
-    fun increment() = sendAction(CounterAction.Increment)
+)
+```
+
+Where `CounterViewModel` extends `BaseMVIViewModel` with your state, actions, effects, and events. The framework provides managed integration with reactive state management and automatic lifecycle handling.
+
+_Note: The Lucid MVI framework has been designed to work as ViewModels in your Activities/Fragments. Each ViewModel instance manages its own state independently._
+
+### Initialization strategy
+
+`viewModel.sendAction()` is the primary method to trigger state changes by dispatching actions to the reducer. The framework automatically handles state updates and effect processing.
+
+The alternative approach is to use `viewModel.sendEffect()` for triggering side effects directly. To maintain predictable state flow, the recommended approach is to always start with actions and let the reducer determine when effects should be triggered.
+
+### Setting the state
+
+The state is managed through immutable data classes that represent your application state at any moment. State changes are triggered by actions processed through pure reducer functions.
+
+The Lucid MVI SDK supports reactive state observation through StateFlow:
+
+```kotlin
+viewModel.stateFlow.collect { state ->
+    // Update UI based on new state
 }
 ```
 
-## ✨ Key Features
+### Processing actions
 
-| Feature | Description |
-|---------|-------------|
-| 🏗️ **Kotlin Coroutines Based** | Reactive architecture with fully asynchronous processing |
-| 🔄 **Unidirectional Data Flow** | Predictable state management, easy to debug |
-| 🎯 **Type Safe** | Compile-time type checking reduces runtime errors |
-| 🧪 **Easy to Test** | Pure functional reducers, predictable side effect handling |
-| 📦 **Lightweight** | No additional dependencies, < 20KB |
-| 🚀 **Production Ready** | Lifecycle awareness and thread safety built-in |
-| 📱 **Compose Ready** | First-class Jetpack Compose integration |
+**Once your ViewModel is initialized**, you can dispatch actions using the `sendAction` method. Actions represent user intents and are processed by the reducer to produce new states.
 
-## 📱 Demo Application
+The method `sendAction` will trigger the reducer to process the action and update the state accordingly.
+
+```kotlin
+val newState = viewModel.sendAction(CounterAction.Increment)
+// State is automatically updated and emitted to observers
+```
+
+### Handling effects
+
+Effects represent side operations like network calls, database operations, or other async tasks. You can trigger effects using the `sendEffect` method.
+
+All state data and context information is available to the EffectHandler for processing side effects.
+
+```kotlin
+viewModel.sendEffect(CounterEffect.SaveCount)
+```
+
+The Lucid MVI SDK has support for automatic effect handling through the `EffectHandler` interface. This provides a clean separation between state management and side effect processing.
+
+### Event handling
+
+Events represent one-time occurrences that should be handled by the UI, such as showing toasts, navigation, or error messages.
+
+```kotlin
+viewModel.eventFlow.collect { event ->
+    when (event) {
+        is CounterEvent.ShowMessage -> showToast(event.message)
+        is CounterEvent.NavigateToDetail -> navigate(event.id)
+    }
+}
+```
+
+### Logging
+
+By default, the Lucid MVI SDK provides structured logging for state changes and effect processing. You can customize logging behavior through the ViewModel configuration.
+
+To enable detailed logging for debugging, you can override logging methods in your ViewModel implementation.
+
+## Demo Application
 
 This repository includes a comprehensive demo app showcasing MVI in action:
 
@@ -62,9 +136,11 @@ This repository includes a comprehensive demo app showcasing MVI in action:
   <img src="Screenshot_20250901_145103.png" alt="Todo Activity - Complex State Management" width="180"/>
 </p>
 
-## 🛠️ Installation
+## Installation
 
-### Method 1: JitPack (Recommended)
+### Adding the package dependency
+
+The latest release of the SDK is available on JitPack.
 
 Add JitPack repository to your project's `build.gradle.kts`:
 
@@ -86,11 +162,15 @@ dependencies {
 }
 ```
 
-### Method 2: GitHub Packages
+Where `0.0.6` is the most recent version of this SDK.
 
-See [GitHub Packages setup guide](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry) for authentication.
+Released versions can be found under "Releases" within this repository.
 
-## ⚡ Quick Start
+### Alternative: GitHub Packages
+
+See [GitHub Packages setup guide](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry) for authentication setup.
+
+## Quick Start
 
 ### 1. Define Your MVI Components
 
@@ -283,7 +363,7 @@ class MainActivity : AppCompatActivity() {
 
 </details>
 
-## 🏗️ Architecture
+## Architecture
 
 Lucid MVI follows a strict unidirectional data flow:
 
@@ -301,7 +381,7 @@ Lucid MVI follows a strict unidirectional data flow:
                                └──────────────┘
 ```
 
-## 📈 Roadmap
+## Roadmap
 
 - [x] ~~Compose integration support~~
 - [ ] Debug tools and logging
@@ -310,7 +390,30 @@ Lucid MVI follows a strict unidirectional data flow:
 - [ ] Testing utilities
 - [ ] Performance monitoring tools
 
-## 📚 Documentation
+
+## About
+
+Lucid MVI is a modern Android architecture framework that brings predictable state management to your applications. Built with Kotlin Coroutines and designed for both traditional Views and Jetpack Compose, it provides a clean, testable, and scalable foundation for Android development.
+
+### Key Benefits
+
+| Benefit | Description |
+|---------|-------------|
+| **Predictable** | State changes are always triggered by actions, making app behavior predictable |
+| **Debuggable** | Unidirectional data flow makes it easy to trace bugs and understand state changes |
+| **Testable** | Pure functions and clear separation of concerns make testing straightforward |
+| **Scalable** | Handles complex state management and async operations elegantly |
+| **Maintainable** | Clear architecture patterns make code easy to understand and modify |
+
+### Requirements
+
+- **Minimum SDK**: API 24 (Android 7.0)
+- **Target SDK**: API 36
+- **Kotlin**: 2.0.21+
+- **Coroutines**: 1.9.0+
+- **Compose**: 1.7.6+ (optional)
+
+### Resources
 
 - 📖 [**Complete Wiki**](WIKI.md) - Comprehensive framework documentation
 - 🎯 [**Quick Start Guide**](#quick-start) - Get up and running in 5 minutes
@@ -318,7 +421,11 @@ Lucid MVI follows a strict unidirectional data flow:
 - 🧪 [**Testing Guide**](WIKI.md#best-practices) - Best practices for testing MVI
 - 📱 [**Compose Integration**](WIKI.md#quick-start) - Modern UI with Jetpack Compose
 
-## 🤝 Contributing
+### License
+
+Apache-2.0 license
+
+### Contributing
 
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
@@ -328,55 +435,6 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 2. Open in Android Studio Arctic Fox or later
 3. Run `./gradlew check` to verify setup
 4. Run the demo app to see examples
-
-### Areas for Contribution
-
-- 📖 Documentation improvements
-- 🐛 Bug fixes and performance optimizations
-- ✨ New features and enhancements
-- 🧪 Additional testing utilities
-- 📱 More demo examples
-
-## 💡 Why MVI?
-
-| Benefit | Description |
-|---------|-------------|
-| **Predictable** | State changes are always triggered by actions, making the app behavior predictable |
-| **Debuggable** | Unidirectional data flow makes it easy to trace bugs and understand state changes |
-| **Testable** | Pure functions and clear separation of concerns make testing straightforward |
-| **Scalable** | Handles complex state management and async operations elegantly |
-| **Maintainable** | Clear architecture patterns make code easy to understand and modify |
-
-
-## ⚙️ Requirements
-
-- **Minimum SDK**: API 24 (Android 7.0)
-- **Target SDK**: API 36
-- **Kotlin**: 2.0.21+
-- **Coroutines**: 1.9.0+
-- **Compose**: 1.7.6+ (optional)
-
-## 📄 License
-
-```
-Copyright 2024 Fang Wei
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
-
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=greathousesh/Lucid-MVI&type=Date)](https://star-history.com/#greathousesh/Lucid-MVI&Date)
 
 ---
 
