@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.MVIDemo" parent="Theme.Material3.DayNight">
+        <!-- Sky Blue Primary Colors -->
+        <item name="colorPrimary">@color/sky_blue_primary</item>
+        <item name="colorPrimaryVariant">@color/sky_blue_primary_variant</item>
+        <item name="colorOnPrimary">@color/sky_blue_on_primary</item>
+        
+        <!-- Sky Blue Secondary Colors -->
+        <item name="colorSecondary">@color/sky_blue_secondary</item>
+        <item name="colorSecondaryVariant">@color/sky_blue_secondary_variant</item>
+        <item name="colorOnSecondary">@color/sky_blue_on_secondary</item>
+        
+        <!-- Sky Blue Surface Colors -->
+        <item name="colorSurface">@color/sky_blue_surface</item>
+        <item name="colorOnSurface">@color/sky_blue_on_surface</item>
+        
+        <!-- Sky Blue Background Colors -->
+        <item name="android:colorBackground">@color/sky_blue_background</item>
+        <item name="colorOnBackground">@color/sky_blue_on_background</item>
+        
+        <!-- Error Color -->
+        <item name="colorError">@color/error</item>
+        
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/sky_blue_primary_variant</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Theme.MVIDemo" parent="Base.Theme.MVIDemo" />
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sky Blue Theme Colors -->
+    <color name="sky_blue_primary">#87CEEB</color>
+    <color name="sky_blue_primary_variant">#4682B4</color>
+    <color name="sky_blue_secondary">#B0E0E6</color>
+    <color name="sky_blue_secondary_variant">#5F9EA0</color>
+    
+    <!-- Light colors -->
+    <color name="sky_blue_surface">#F0F8FF</color>
+    <color name="sky_blue_background">#FFFFFF</color>
+    <color name="sky_blue_on_primary">#FFFFFF</color>
+    <color name="sky_blue_on_secondary">#000000</color>
+    <color name="sky_blue_on_surface">#000000</color>
+    <color name="sky_blue_on_background">#000000</color>
+    
+    <!-- Additional sky blue shades -->
+    <color name="light_sky_blue">#87CEFA</color>
+    <color name="deep_sky_blue">#00BFFF</color>
+    <color name="powder_blue">#B0E0E6</color>
+    
+    <!-- Common colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="error">#F44336</color>
+</resources>
