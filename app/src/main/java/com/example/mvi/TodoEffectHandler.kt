@@ -38,22 +38,12 @@ class TodoEffectHandler : EffectHandler<TodoState, TodoAction, TodoEffect, TodoE
                         savedTodos.addAll(getSampleTodos())
                     }
                     
-                    // 模拟加载数据并直接添加到状态中，不触发SaveTodos
-                    val newTodos = savedTodos.filter { savedTodo ->
-                        !state.todos.any { it.id == savedTodo.id }
-                    }
-                    
-                    // 批量添加todos，使用内部action避免触发保存
-                    newTodos.forEach { todo ->
-                        dispatch(TodoAction.AddTodoInternal(todo))
-                    }
-                    
-                    // 完成加载，重置loading状态
-                    dispatch(TodoAction.LoadTodosCompleted)
+                    // 直接将加载的数据通过LoadTodosCompleted返回给state
+                    dispatch(TodoAction.LoadTodosCompleted(savedTodos.toList()))
                     emit(TodoEvent.TodosLoaded)
                 } catch (e: Exception) {
-                    // 发生错误时也要重置loading状态
-                    dispatch(TodoAction.LoadTodosCompleted)
+                    // 发生错误时也要重置loading状态，传入空列表
+                    dispatch(TodoAction.LoadTodosCompleted(emptyList()))
                     emit(TodoEvent.ShowError("Failed to load todos: ${e.message}"))
                 }
             }

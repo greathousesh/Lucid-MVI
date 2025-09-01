@@ -16,12 +16,7 @@ class TodoReducer : StateReducer<TodoState, TodoAction> {
                 )
             }
             
-            is TodoAction.AddTodoInternal -> {
-                state.copy(
-                    todos = state.todos + action.todo
-                )
-            }
-            
+
             is TodoAction.UpdateTodo -> {
                 state.copy(
                     todos = state.todos.map { todo ->
@@ -72,7 +67,10 @@ class TodoReducer : StateReducer<TodoState, TodoAction> {
             }
             
             is TodoAction.LoadTodosCompleted -> {
-                state.copy(isLoading = false)
+                state.copy(
+                    isLoading = false,
+                    todos = action.todos
+                )
             }
         }
     }

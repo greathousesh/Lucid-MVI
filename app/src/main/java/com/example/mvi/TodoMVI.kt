@@ -28,7 +28,7 @@ enum class TodoFilter {
 // 动作
 sealed class TodoAction {
     data class AddTodo(val title: String, val description: String = "") : TodoAction()
-    data class AddTodoInternal(val todo: TodoItem) : TodoAction() // 内部使用，不触发保存
+
     data class UpdateTodo(val todo: TodoItem) : TodoAction()
     data class DeleteTodo(val todoId: String) : TodoAction()
     data class ToggleTodo(val todoId: String) : TodoAction()
@@ -37,7 +37,7 @@ sealed class TodoAction {
     object CancelEditing : TodoAction()
     object ClearCompleted : TodoAction()
     object LoadTodos : TodoAction()
-    object LoadTodosCompleted : TodoAction()
+    data class LoadTodosCompleted(val todos: List<TodoItem>) : TodoAction()
 }
 
 // 副作用
