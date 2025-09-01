@@ -108,7 +108,7 @@ else
 fi
 
 # 更新 README.md 中的版本 (两处: 中文和英文部分)
-if sed -i.tmp "s/Simple-MVI:$CURRENT_VERSION/Simple-MVI:$NEW_VERSION/g" "$README_FILE"; then
+if sed -i.tmp "s/Lucid-MVI:$CURRENT_VERSION/Lucid-MVI:$NEW_VERSION/g" "$README_FILE"; then
     rm -f "$README_FILE.tmp"
     print_success "已更新 $README_FILE"
 else

@@ -54,7 +54,7 @@ afterEvaluate {
                 pom {
                     name.set("MVI Library")
                     description.set("A simple and elegant MVI (Model-View-Intent) implementation for Android")
-                    url.set("https://github.com/greathousesh/Simple-MVI")
+                    url.set("https://github.com/greathousesh/Lucid-MVI")
                     
                     licenses {
                         license {
@@ -69,7 +69,7 @@ afterEvaluate {
         repositories {
             maven {
                 name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/greathousesh/Simple-MVI")
+                url = uri("https://maven.pkg.github.com/greathousesh/Lucid-MVI")
                 credentials {
                     username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
                     password = project.findProperty("gpr.token") as String? ?: System.getenv("GITHUB_TOKEN")
