@@ -1,48 +1,48 @@
 # Lucid MVI Framework Wiki
 
-## 📋 目录
+## 📋 Table of Contents
 
-1. [框架介绍](#框架介绍)
-2. [设计理念](#设计理念)
-3. [核心概念](#核心概念)
-4. [架构详解](#架构详解)
-5. [快速开始](#快速开始)
-6. [详细教程](#详细教程)
-7. [最佳实践](#最佳实践)
-8. [高级用法](#高级用法)
-9. [常见问题](#常见问题)
-10. [示例项目](#示例项目)
-
----
-
-## 框架介绍
-
-Lucid MVI 是一个轻量级、类型安全的Android MVI (Model-View-Intent) 架构框架。它基于Kotlin协程构建，提供了响应式的状态管理和清晰的单向数据流。
-
-### 🎯 核心特性
-
-- **🏗️ 基于Kotlin协程** - 响应式架构，完全异步处理
-- **🔄 单向数据流** - 可预测的状态管理，易于调试
-- **🎯 类型安全** - 编译时类型检查，减少运行时错误  
-- **🧪 易于测试** - 纯函数式reducer，可预测的副作用处理
-- **📦 轻量级** - 无额外依赖，仅核心MVI实现
-- **🚀 生产就绪** - 包含生命周期感知和线程安全特性
-
-### 📊 技术规格
-
-- **最小Android SDK**: API 24 (Android 7.0)
-- **Kotlin版本**: 2.0.21+
-- **Coroutines版本**: 1.9.0+
-- **包大小**: < 20KB
-- **依赖**: 仅Android标准库
+1. [Framework Introduction](#framework-introduction)
+2. [Design Philosophy](#design-philosophy)
+3. [Core Concepts](#core-concepts)
+4. [Architecture Deep Dive](#architecture-deep-dive)
+5. [Quick Start](#quick-start)
+6. [Detailed Tutorial](#detailed-tutorial)
+7. [Best Practices](#best-practices)
+8. [Advanced Usage](#advanced-usage)
+9. [FAQ](#faq)
+10. [Example Projects](#example-projects)
 
 ---
 
-## 设计理念
+## Framework Introduction
 
-### 🎭 MVI 架构模式
+Lucid MVI is a lightweight, type-safe Android MVI (Model-View-Intent) architecture framework. Built on Kotlin Coroutines, it provides reactive state management and clear unidirectional data flow.
 
-MVI (Model-View-Intent) 是一种受函数式编程启发的架构模式，具有以下特点：
+### 🎯 Core Features
+
+- **🏗️ Kotlin Coroutines Based** - Reactive architecture with fully asynchronous processing
+- **🔄 Unidirectional Data Flow** - Predictable state management, easy to debug
+- **🎯 Type Safe** - Compile-time type checking reduces runtime errors  
+- **🧪 Easy to Test** - Pure functional reducers, predictable side effect handling
+- **📦 Lightweight** - No additional dependencies, core MVI implementation only
+- **🚀 Production Ready** - Includes lifecycle awareness and thread safety features
+
+### 📊 Technical Specifications
+
+- **Minimum Android SDK**: API 24 (Android 7.0)
+- **Kotlin Version**: 2.0.21+
+- **Coroutines Version**: 1.9.0+
+- **Package Size**: < 20KB
+- **Dependencies**: Android standard library only
+
+---
+
+## Design Philosophy
+
+### 🎭 MVI Architecture Pattern
+
+MVI (Model-View-Intent) is an architecture pattern inspired by functional programming, featuring:
 
 ```
 Intent → Model → View → Intent
@@ -50,54 +50,54 @@ Intent → Model → View → Intent
    └────────────────────┘
 ```
 
-#### 核心原则
+#### Core Principles
 
-1. **单一数据源 (Single Source of Truth)**
-   - 应用状态存储在单一的State对象中
-   - 所有UI更新都基于State变化
+1. **Single Source of Truth**
+   - Application state is stored in a single State object
+   - All UI updates are based on State changes
 
-2. **不可变性 (Immutability)**
-   - State对象是不可变的
-   - 状态更新通过创建新的State实例
+2. **Immutability**
+   - State objects are immutable
+   - State updates are done by creating new State instances
 
-3. **纯函数式更新 (Pure Functions)**
-   - Reducer是纯函数，相同输入总是产生相同输出
-   - 无副作用，易于测试和调试
+3. **Pure Functions**
+   - Reducers are pure functions, same input always produces same output
+   - No side effects, easy to test and debug
 
-4. **单向数据流 (Unidirectional Data Flow)**
-   - 数据只能单向流动：Intent → Model → View
-   - 避免双向绑定的复杂性
+4. **Unidirectional Data Flow**
+   - Data can only flow in one direction: Intent → Model → View
+   - Avoids the complexity of two-way binding
 
-### 🏛️ Lucid MVI 设计哲学
+### 🏛️ Lucid MVI Design Philosophy
 
-#### 简洁性 (Simplicity)
-- 最小化样板代码
-- 直观的API设计
-- 清晰的概念分离
+#### Simplicity
+- Minimize boilerplate code
+- Intuitive API design
+- Clear separation of concerns
 
-#### 可预测性 (Predictability)
-- 确定性的状态转换
-- 可追踪的数据流
-- 时间旅行调试支持
+#### Predictability
+- Deterministic state transitions
+- Traceable data flow
+- Time-travel debugging support
 
-#### 可扩展性 (Scalability)
-- 支持复杂的业务逻辑
-- 模块化的架构设计
-- 易于团队协作
+#### Scalability
+- Support for complex business logic
+- Modular architecture design
+- Easy team collaboration
 
-#### 性能优化 (Performance)
-- 基于Kotlin协程的异步处理
-- 高效的状态更新机制
-- 内存友好的设计
+#### Performance
+- Asynchronous processing based on Kotlin Coroutines
+- Efficient state update mechanism
+- Memory-friendly design
 
 ---
 
-## 核心概念
+## Core Concepts
 
-### 🏗️ 四大核心组件
+### 🏗️ Four Core Components
 
-#### 1. State (状态)
-**定义**: 应用在某一时刻的完整状态快照
+#### 1. State
+**Definition**: Complete state snapshot of the application at a given moment
 
 ```kotlin
 data class CounterState(
@@ -107,13 +107,13 @@ data class CounterState(
 )
 ```
 
-**特点**:
-- 不可变数据类
-- 包含UI所需的所有信息
-- 可序列化，支持状态保存和恢复
+**Characteristics**:
+- Immutable data class
+- Contains all information needed by the UI
+- Serializable, supports state saving and restoration
 
-#### 2. Action (动作)
-**定义**: 描述用户意图或系统事件的不可变对象
+#### 2. Action
+**Definition**: Immutable objects describing user intent or system events
 
 ```kotlin
 sealed class CounterAction {
@@ -124,13 +124,13 @@ sealed class CounterAction {
 }
 ```
 
-**特点**:
-- 密封类，类型安全
-- 携带操作所需的数据
-- 表达"做什么"而不是"怎么做"
+**Characteristics**:
+- Sealed classes, type-safe
+- Carries data needed for the operation
+- Expresses "what to do" rather than "how to do it"
 
-#### 3. Effect (副作用)
-**定义**: 需要异步处理的操作，如网络请求、数据库操作
+#### 3. Effect
+**Definition**: Operations requiring asynchronous processing, such as network requests, database operations
 
 ```kotlin
 sealed class CounterEffect {
@@ -139,13 +139,13 @@ sealed class CounterEffect {
 }
 ```
 
-**特点**:
-- 与reducer分离的异步操作
-- 可以触发新的Action
-- 可以产生Event
+**Characteristics**:
+- Asynchronous operations separated from reducer
+- Can trigger new Actions
+- Can produce Events
 
-#### 4. Event (事件)
-**定义**: 一次性的UI事件，如Toast、导航、对话框
+#### 4. Event
+**Definition**: One-time UI events, such as Toast, navigation, dialogs
 
 ```kotlin
 sealed class CounterEvent {
@@ -155,12 +155,12 @@ sealed class CounterEvent {
 }
 ```
 
-**特点**:
-- 一次性消费
-- 不影响State
-- 用于UI反馈
+**Characteristics**:
+- One-time consumption
+- Does not affect State
+- Used for UI feedback
 
-### 🔧 核心接口
+### 🔧 Core Interfaces
 
 #### StateReducer
 ```kotlin
@@ -169,10 +169,10 @@ interface StateReducer<State, Action> {
 }
 ```
 
-**职责**:
-- 根据当前状态和动作产生新状态
-- 纯函数，无副作用
-- 同步执行
+**Responsibilities**:
+- Produce new state based on current state and action
+- Pure function, no side effects
+- Synchronous execution
 
 #### EffectHandler
 ```kotlin
@@ -186,16 +186,16 @@ interface EffectHandler<State, Action, Effect, Event> {
 }
 ```
 
-**职责**:
-- 处理异步副作用
-- 可以派发新的Action
-- 可以发出Event
+**Responsibilities**:
+- Handle asynchronous side effects
+- Can dispatch new Actions
+- Can emit Events
 
 ---
 
-## 架构详解
+## Architecture Deep Dive
 
-### 🔄 数据流图
+### 🔄 Data Flow Diagram
 
 ```
 ┌─────────────┐    Action     ┌──────────────┐    New State    ┌─────────────┐
@@ -211,7 +211,7 @@ interface EffectHandler<State, Action, Effect, Event> {
                                └──────────────┘
 ```
 
-### 🏗️ BaseMVIViewModel 架构
+### 🏗️ BaseMVIViewModel Architecture
 
 ```kotlin
 abstract class BaseMVIViewModel<State, Action, Effect, Event>(
@@ -220,35 +220,35 @@ abstract class BaseMVIViewModel<State, Action, Effect, Event>(
 ) : ViewModel()
 ```
 
-#### 核心机制
+#### Core Mechanisms
 
-1. **Action Channel**: 无限容量通道，处理用户动作
-2. **Effect Channel**: 无限容量通道，处理副作用
-3. **State Flow**: 热流，发布状态更新
-4. **Event Flow**: 热流，发布一次性事件
+1. **Action Channel**: Unlimited capacity channel for handling user actions
+2. **Effect Channel**: Unlimited capacity channel for handling side effects
+3. **State Flow**: Hot flow for publishing state updates
+4. **Event Flow**: Hot flow for publishing one-time events
 
-#### 处理流程
+#### Processing Flow
 
-1. **Action处理**:
+1. **Action Processing**:
    ```kotlin
    Action → Reducer → New State → StateFlow
    ```
 
-2. **Effect处理**:
+2. **Effect Processing**:
    ```kotlin
    Effect → EffectHandler → Action/Event
    ```
 
-3. **生命周期管理**:
-   - 基于ViewModel的作用域
-   - 自动清理资源
-   - 线程安全
+3. **Lifecycle Management**:
+   - Based on ViewModel scope
+   - Automatic resource cleanup
+   - Thread-safe operations
 
 ---
 
-## 快速开始
+## Quick Start
 
-### 📦 1. 添加依赖
+### 📦 1. Add Dependencies
 
 #### build.gradle.kts (Project)
 ```kotlin
@@ -268,35 +268,35 @@ dependencies {
 }
 ```
 
-### 🎯 2. 定义MVI组件
+### 🎯 2. Define MVI Components
 
 ```kotlin
-// 1. 定义状态
+// 1. Define State
 data class CounterState(
     val count: Int = 0,
     val isLoading: Boolean = false
 )
 
-// 2. 定义动作
+// 2. Define Actions
 sealed class CounterAction {
     object Increment : CounterAction()
     object Decrement : CounterAction()
     object Reset : CounterAction()
 }
 
-// 3. 定义副作用
+// 3. Define Effects
 sealed class CounterEffect {
     object SaveCount : CounterEffect()
 }
 
-// 4. 定义事件
+// 4. Define Events
 sealed class CounterEvent {
     object CountSaved : CounterEvent()
     data class ShowError(val message: String) : CounterEvent()
 }
 ```
 
-### 🔧 3. 实现Reducer和EffectHandler
+### 🔧 3. Implement Reducer and EffectHandler
 
 ```kotlin
 class CounterReducer : StateReducer<CounterState, CounterAction> {
@@ -319,7 +319,7 @@ class CounterEffectHandler : EffectHandler<CounterState, CounterAction, CounterE
         when (effect) {
             is CounterEffect.SaveCount -> {
                 try {
-                    // 模拟网络请求
+                    // Simulate network request
                     delay(1000)
                     emit(CounterEvent.CountSaved)
                 } catch (e: Exception) {
@@ -331,7 +331,7 @@ class CounterEffectHandler : EffectHandler<CounterState, CounterAction, CounterE
 }
 ```
 
-### 🎭 4. 创建ViewModel
+### 🎭 4. Create ViewModel
 
 ```kotlin
 class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEffect, CounterEvent>(
@@ -340,7 +340,7 @@ class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEf
 ) {
     override fun initialState(): CounterState = CounterState()
     
-    // 便捷方法
+    // Convenience methods
     fun increment() = sendAction(CounterAction.Increment)
     fun decrement() = sendAction(CounterAction.Decrement)
     fun reset() = sendAction(CounterAction.Reset)
@@ -348,9 +348,9 @@ class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEf
 }
 ```
 
-### 📱 5. 在Activity/Fragment中使用
+### 📱 5. Use in Activity/Fragment
 
-#### 传统View
+#### Traditional Views
 ```kotlin
 class MainActivity : AppCompatActivity() {
     private val viewModel: CounterViewModel by viewModels()
@@ -358,21 +358,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // 观察状态
+        // Observe state
         lifecycleScope.launch {
             viewModel.stateFlow.collect { state ->
                 updateUI(state)
             }
         }
         
-        // 观察事件
+        // Observe events
         lifecycleScope.launch {
             viewModel.eventFlow.collect { event ->
                 handleEvent(event)
             }
         }
         
-        // 发送动作
+        // Send actions
         incrementButton.setOnClickListener {
             viewModel.increment()
         }
@@ -392,7 +392,7 @@ fun CounterScreen(viewModel: CounterViewModel = viewModel()) {
     val state by viewModel.stateFlow.collectAsStateWithLifecycle()
     val context = LocalContext.current
     
-    // 处理事件
+    // Handle events
     LaunchedEffect(viewModel) {
         viewModel.eventFlow.collect { event ->
             when (event) {
@@ -406,7 +406,7 @@ fun CounterScreen(viewModel: CounterViewModel = viewModel()) {
         }
     }
     
-    // UI内容
+    // UI content
     Column {
         Text(
             text = state.count.toString(),
@@ -431,13 +431,13 @@ fun CounterScreen(viewModel: CounterViewModel = viewModel()) {
 
 ---
 
-## 详细教程
+## Detailed Tutorial
 
-### 📚 教程1: 构建Todo应用
+### 📚 Tutorial: Building a Todo Application
 
-让我们通过构建一个Todo应用来深入学习Lucid MVI。
+Let's learn Lucid MVI in depth by building a Todo application.
 
-#### 步骤1: 定义数据模型
+#### Step 1: Define Data Models
 
 ```kotlin
 data class TodoItem(
@@ -453,7 +453,7 @@ enum class TodoFilter {
 }
 ```
 
-#### 步骤2: 定义MVI组件
+#### Step 2: Define MVI Components
 
 ```kotlin
 // State
@@ -493,7 +493,7 @@ sealed class TodoEvent {
 }
 ```
 
-#### 步骤3: 实现Reducer
+#### Step 3: Implement Reducer
 
 ```kotlin
 class TodoReducer : StateReducer<TodoState, TodoAction> {
@@ -541,12 +541,12 @@ class TodoReducer : StateReducer<TodoState, TodoAction> {
 }
 ```
 
-#### 步骤4: 实现EffectHandler
+#### Step 4: Implement EffectHandler
 
 ```kotlin
 class TodoEffectHandler : EffectHandler<TodoState, TodoAction, TodoEffect, TodoEvent> {
     
-    private val repository = TodoRepository() // 假设的数据仓库
+    private val repository = TodoRepository() // Hypothetical data repository
     
     override suspend fun handle(
         state: TodoState,
@@ -558,7 +558,7 @@ class TodoEffectHandler : EffectHandler<TodoState, TodoAction, TodoEffect, TodoE
             is TodoEffect.LoadTodos -> {
                 try {
                     val todos = repository.loadTodos()
-                    // 批量添加todos
+                    // Batch add todos
                     todos.forEach { todo ->
                         dispatch(TodoAction.AddTodo(todo.title, todo.description))
                     }
@@ -595,7 +595,7 @@ class TodoEffectHandler : EffectHandler<TodoState, TodoAction, TodoEffect, TodoE
 }
 ```
 
-#### 步骤5: 创建ViewModel
+#### Step 5: Create ViewModel
 
 ```kotlin
 class TodoViewModel : BaseMVIViewModel<TodoState, TodoAction, TodoEffect, TodoEvent>(
@@ -604,7 +604,7 @@ class TodoViewModel : BaseMVIViewModel<TodoState, TodoAction, TodoEffect, TodoEv
 ) {
     override fun initialState(): TodoState = TodoState()
     
-    // 公共API
+    // Public API
     fun addTodo(title: String, description: String = "") {
         if (title.isNotBlank()) {
             sendAction(TodoAction.AddTodo(title.trim(), description.trim()))
@@ -631,7 +631,7 @@ class TodoViewModel : BaseMVIViewModel<TodoState, TodoAction, TodoEffect, TodoEv
         sendEffect(TodoEffect.LoadTodos)
     }
     
-    // 计算属性
+    // Computed properties
     fun getFilteredTodos(state: TodoState): List<TodoItem> {
         return when (state.filter) {
             TodoFilter.ALL -> state.todos
@@ -651,11 +651,11 @@ class TodoViewModel : BaseMVIViewModel<TodoState, TodoAction, TodoEffect, TodoEv
 
 ---
 
-## 最佳实践
+## Best Practices
 
-### 🎯 1. State设计原则
+### 🎯 1. State Design Principles
 
-#### ✅ 良好的State设计
+#### ✅ Good State Design
 ```kotlin
 data class UserState(
     val user: User? = null,
@@ -665,79 +665,79 @@ data class UserState(
 )
 ```
 
-#### ❌ 避免的设计
+#### ❌ Avoid These Designs
 ```kotlin
-// 不要在State中包含UI组件引用
+// Don't include UI component references in State
 data class BadState(
     val user: User? = null,
-    val textView: TextView? = null // ❌ 不要这样做
+    val textView: TextView? = null // ❌ Don't do this
 )
 
-// 不要在State中包含回调函数
+// Don't include callback functions in State
 data class BadState(
     val user: User? = null,
-    val onUserClick: (User) -> Unit // ❌ 不要这样做
+    val onUserClick: (User) -> Unit // ❌ Don't do this
 )
 ```
 
-### 🔧 2. Action设计指南
+### 🔧 2. Action Design Guidelines
 
-#### ✅ 清晰的Action命名
+#### ✅ Clear Action Naming
 ```kotlin
 sealed class UserAction {
-    object LoadUser : UserAction()                    // 明确的动作
-    data class UpdateUserName(val name: String) : UserAction()  // 携带必要数据
-    object RefreshUser : UserAction()                 // 区分不同的加载场景
+    object LoadUser : UserAction()                    // Clear action
+    data class UpdateUserName(val name: String) : UserAction()  // Carries necessary data
+    object RefreshUser : UserAction()                 // Distinguishes different loading scenarios
 }
 ```
 
-#### ❌ 避免的Action设计
+#### ❌ Avoid These Action Designs
 ```kotlin
 sealed class BadAction {
-    data class DoSomething(val data: Any) : BadAction()  // ❌ 含糊不清
-    object Action1 : BadAction()                         // ❌ 无意义的命名
+    data class DoSomething(val data: Any) : BadAction()  // ❌ Vague
+    object Action1 : BadAction()                         // ❌ Meaningless naming
 }
 ```
 
-### 🎪 3. Effect vs Action 选择
+### 🎪 3. Effect vs Action Choice
 
-#### 使用Action的场景
-- 同步状态更新
-- 简单的业务逻辑
-- 不需要外部依赖的操作
-
-```kotlin
-// ✅ 适合用Action
-CounterAction.Increment  // 简单的计数增加
-CounterAction.Reset      // 重置状态
-```
-
-#### 使用Effect的场景
-- 异步操作
-- 网络请求
-- 数据库操作
-- 文件I/O
+#### Use Action for:
+- Synchronous state updates
+- Simple business logic
+- Operations that don't require external dependencies
 
 ```kotlin
-// ✅ 适合用Effect
-UserEffect.LoadUserFromApi(userId)     // 网络请求
-UserEffect.SaveUserToDatabase(user)   // 数据库操作
+// ✅ Suitable for Action
+CounterAction.Increment  // Simple counter increment
+CounterAction.Reset      // Reset state
 ```
 
-### 🌊 4. 事件处理最佳实践
+#### Use Effect for:
+- Asynchronous operations
+- Network requests
+- Database operations
+- File I/O
 
-#### ✅ 正确的事件使用
+```kotlin
+// ✅ Suitable for Effect
+UserEffect.LoadUserFromApi(userId)     // Network request
+UserEffect.SaveUserToDatabase(user)   // Database operation
+```
+
+### 🌊 4. Event Handling Best Practices
+
+#### ✅ Correct Event Usage
 ```kotlin
 sealed class UserEvent {
-    object UserSaved : UserEvent()                    // 成功反馈
-    data class ShowError(val message: String) : UserEvent()  // 错误处理
-    data class NavigateToProfile(val userId: String) : UserEvent()  // 导航
+    object UserSaved : UserEvent()                    // Success feedback
+    data class ShowError(val message: String) : UserEvent()  // Error handling
+    data class NavigateToProfile(val userId: String) : UserEvent()  // Navigation
 }
 ```
 
-#### 在UI中正确处理事件
+#### Proper Event Handling in UI
 ```kotlin
-// Compose中
+// In Compose
 LaunchedEffect(viewModel) {
     viewModel.eventFlow.collect { event ->
         when (event) {
@@ -755,9 +755,9 @@ LaunchedEffect(viewModel) {
 }
 ```
 
-### 🧪 5. 测试策略
+### 🧪 5. Testing Strategy
 
-#### Reducer测试
+#### Reducer Testing
 ```kotlin
 class UserReducerTest {
     private val reducer = UserReducer()
@@ -777,7 +777,7 @@ class UserReducerTest {
 }
 ```
 
-#### EffectHandler测试
+#### EffectHandler Testing
 ```kotlin
 class UserEffectHandlerTest {
     private val mockRepository = mockk<UserRepository>()
@@ -806,7 +806,7 @@ class UserEffectHandlerTest {
 }
 ```
 
-#### ViewModel集成测试
+#### ViewModel Integration Testing
 ```kotlin
 class UserViewModelTest {
     @get:Rule
@@ -843,9 +843,9 @@ class UserViewModelTest {
 
 ---
 
-## 高级用法
+## Advanced Usage
 
-### 🔀 1. 组合多个Reducer
+### 🔀 1. Composing Multiple Reducers
 
 ```kotlin
 class CompositeReducer : StateReducer<AppState, AppAction> {
@@ -861,7 +861,7 @@ class CompositeReducer : StateReducer<AppState, AppAction> {
                 state.copy(todoState = todoReducer.reduce(state.todoState, action.todoAction))
             }
             is AppAction.GlobalAction -> {
-                // 处理全局动作
+                // Handle global actions
                 handleGlobalAction(state, action.globalAction)
             }
         }
@@ -869,7 +869,7 @@ class CompositeReducer : StateReducer<AppState, AppAction> {
 }
 ```
 
-### 🔗 2. Effect链式调用
+### 🔗 2. Effect Chaining
 
 ```kotlin
 class ChainedEffectHandler : EffectHandler<UserState, UserAction, UserEffect, UserEvent> {
@@ -882,15 +882,15 @@ class ChainedEffectHandler : EffectHandler<UserState, UserAction, UserEffect, Us
         when (effect) {
             is UserEffect.LoginUser -> {
                 try {
-                    // 1. 验证用户
+                    // 1. Authenticate user
                     val authResult = authService.authenticate(effect.credentials)
                     dispatch(UserAction.SetAuthToken(authResult.token))
                     
-                    // 2. 加载用户资料
+                    // 2. Load user profile
                     val user = userService.getUserProfile(authResult.userId)
                     dispatch(UserAction.SetUser(user))
                     
-                    // 3. 加载用户设置
+                    // 3. Load user settings
                     val settings = settingsService.getUserSettings(authResult.userId)
                     dispatch(UserAction.SetUserSettings(settings))
                     
@@ -904,7 +904,7 @@ class ChainedEffectHandler : EffectHandler<UserState, UserAction, UserEffect, Us
 }
 ```
 
-### 🎯 3. 条件Effect处理
+### 🎯 3. Conditional Effect Handling
 
 ```kotlin
 class ConditionalEffectHandler : EffectHandler<TodoState, TodoAction, TodoEffect, TodoEvent> {
@@ -916,7 +916,7 @@ class ConditionalEffectHandler : EffectHandler<TodoState, TodoAction, TodoEffect
     ) {
         when (effect) {
             is TodoEffect.SaveTodos -> {
-                // 只有当todos发生变化时才保存
+                // Only save when todos have actually changed
                 if (state.todos != lastSavedTodos) {
                     try {
                         repository.saveTodos(state.todos)
@@ -929,7 +929,7 @@ class ConditionalEffectHandler : EffectHandler<TodoState, TodoAction, TodoEffect
             }
             
             is TodoEffect.AutoSave -> {
-                // 基于状态条件决定是否自动保存
+                // Decide whether to auto-save based on state conditions
                 if (state.todos.isNotEmpty() && !state.isLoading) {
                     dispatch(TodoAction.TriggerSave)
                 }
@@ -939,7 +939,7 @@ class ConditionalEffectHandler : EffectHandler<TodoState, TodoAction, TodoEffect
 }
 ```
 
-### 🕰️ 4. 状态时间旅行调试
+### 🕰️ 4. Time Travel Debugging
 
 ```kotlin
 class TimeTravel<State> {
@@ -947,7 +947,7 @@ class TimeTravel<State> {
     private var currentIndex = -1
     
     fun record(state: State) {
-        // 移除当前位置之后的历史
+        // Remove history after current position
         if (currentIndex < history.size - 1) {
             history.removeAll(history.drop(currentIndex + 1))
         }
@@ -974,7 +974,7 @@ class TimeTravel<State> {
     fun canRedo(): Boolean = currentIndex < history.size - 1
 }
 
-// 在ViewModel中使用
+// Usage in ViewModel
 class DebuggableViewModel : BaseMVIViewModel<State, Action, Effect, Event>(
     reducer = DebuggableReducer(),
     effectHandler = EffectHandler()
@@ -1001,7 +1001,7 @@ class DebuggableViewModel : BaseMVIViewModel<State, Action, Effect, Event>(
 }
 ```
 
-### 🔄 5. 中间件模式
+### 🔄 5. Middleware Pattern
 
 ```kotlin
 interface Middleware<State, Action> {
@@ -1030,7 +1030,7 @@ class AnalyticsMiddleware<State, Action> : Middleware<State, Action> {
         action: Action,
         next: suspend (Action) -> Unit
     ) {
-        // 记录分析数据
+        // Record analytics data
         analytics.track("action_dispatched", mapOf(
             "action_type" to action::class.simpleName,
             "state_type" to state::class.simpleName
@@ -1042,37 +1042,37 @@ class AnalyticsMiddleware<State, Action> : Middleware<State, Action> {
 
 ---
 
-## 常见问题
+## FAQ
 
-### ❓ Q1: State应该包含哪些数据？
+### ❓ Q1: What data should State contain?
 
-**A**: State应该包含UI渲染所需的所有数据，包括：
-- 业务数据（用户信息、列表等）
-- UI状态（loading、error、选中项等）
-- 导航状态（当前页面、对话框状态等）
+**A**: State should contain all data needed for UI rendering, including:
+- Business data (user info, lists, etc.)
+- UI state (loading, error, selected items, etc.)
+- Navigation state (current page, dialog state, etc.)
 
-**不应该包含**：
-- UI组件引用
-- 回调函数
-- 非序列化的对象
+**Should NOT contain**:
+- UI component references
+- Callback functions
+- Non-serializable objects
 
-### ❓ Q2: 何时使用Effect而不是Action？
+### ❓ Q2: When to use Effect vs Action?
 
 **A**: 
-- **使用Action**: 同步状态更新、简单计算、不需要外部依赖
-- **使用Effect**: 异步操作、网络请求、数据库操作、文件I/O
+- **Use Action**: Synchronous state updates, simple calculations, no external dependencies
+- **Use Effect**: Asynchronous operations, network requests, database operations, file I/O
 
 ```kotlin
-// Action - 同步更新
+// Action - synchronous update
 CounterAction.Increment
 
-// Effect - 异步操作
+// Effect - asynchronous operation
 UserEffect.LoadFromApi
 ```
 
-### ❓ Q3: 如何处理复杂的异步操作？
+### ❓ Q3: How to handle complex asynchronous operations?
 
-**A**: 使用Effect链式调用或条件处理：
+**A**: Use Effect chaining or conditional handling:
 
 ```kotlin
 override suspend fun handle(effect: Effect, dispatch: ..., emit: ...) {
@@ -1096,21 +1096,21 @@ override suspend fun handle(effect: Effect, dispatch: ..., emit: ...) {
 }
 ```
 
-### ❓ Q4: 如何优化性能？
+### ❓ Q4: How to optimize performance?
 
 **A**: 
-1. **使用不可变集合**
-2. **避免频繁的状态更新**
-3. **合理使用协程作用域**
-4. **实现状态差异检查**
+1. **Use immutable collections**
+2. **Avoid frequent state updates**
+3. **Use coroutine scopes properly**
+4. **Implement state diff checking**
 
 ```kotlin
-// 优化状态更新
+// Optimize state updates
 override fun reduce(state: State, action: Action): State {
     val newData = when (action) {
         is Action.UpdateList -> {
             if (action.newList == state.list) {
-                return state // 避免不必要的更新
+                return state // Avoid unnecessary updates
             }
             action.newList
         }
@@ -1121,15 +1121,15 @@ override fun reduce(state: State, action: Action): State {
 }
 ```
 
-### ❓ Q5: 如何处理内存泄漏？
+### ❓ Q5: How to handle memory leaks?
 
-**A**: Lucid MVI自动处理生命周期：
-- 基于ViewModel作用域的协程
-- 自动清理Channel和Flow
-- onCleared()中释放资源
+**A**: Lucid MVI automatically handles lifecycle:
+- Coroutines based on ViewModel scope
+- Automatic Channel and Flow cleanup
+- Resource release in onCleared()
 
 ```kotlin
-// 框架自动处理
+// Framework handles this automatically
 override fun onCleared() {
     super.onCleared()
     actionChannel.close()
@@ -1139,24 +1139,24 @@ override fun onCleared() {
 
 ---
 
-## 示例项目
+## Example Projects
 
-### 🏠 Demo应用结构
+### 🏠 Demo Application Structure
 
-本项目包含完整的示例应用，展示不同复杂度的MVI实现：
+This project includes a comprehensive demo application showcasing different levels of MVI implementation:
 
-#### 1. HomeActivity - 导航中心
-- Material 3设计
-- 统一的示例入口
-- 响应式布局
+#### 1. HomeActivity - Navigation Hub
+- Material 3 design
+- Unified example entry point
+- Responsive layout
 
-#### 2. CounterActivity - 基础计数器
-- **技术栈**: Traditional Views + ViewBinding
-- **复杂度**: ⭐
-- **学习重点**: MVI基础概念
+#### 2. CounterActivity - Basic Counter
+- **Tech Stack**: Traditional Views + ViewBinding
+- **Complexity**: ⭐
+- **Learning Focus**: MVI basics
 
 ```kotlin
-// 完整的计数器实现
+// Complete counter implementation
 class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEffect, CounterEvent>(
     reducer = CounterReducer(),
     effectHandler = CounterEffectHandler()
@@ -1170,10 +1170,10 @@ class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEf
 }
 ```
 
-#### 3. CounterComposeActivity - 现代计数器
-- **技术栈**: Jetpack Compose + Material 3
-- **复杂度**: ⭐⭐
-- **学习重点**: Compose与MVI集成
+#### 3. CounterComposeActivity - Modern Counter
+- **Tech Stack**: Jetpack Compose + Material 3
+- **Complexity**: ⭐⭐
+- **Learning Focus**: Compose integration with MVI
 
 ```kotlin
 @Composable
@@ -1182,11 +1182,11 @@ fun CounterScreen(viewModel: CounterViewModel) {
     
     LaunchedEffect(viewModel) {
         viewModel.eventFlow.collect { event ->
-            // 处理事件
+            // Handle events
         }
     }
     
-    // UI组件
+    // UI components
     CounterContent(
         state = state,
         onIncrement = viewModel::increment,
@@ -1195,18 +1195,18 @@ fun CounterScreen(viewModel: CounterViewModel) {
 }
 ```
 
-#### 4. TodoActivity - 复杂状态管理
-- **技术栈**: Jetpack Compose + 复杂业务逻辑
-- **复杂度**: ⭐⭐⭐⭐
-- **学习重点**: 
-  - CRUD操作
-  - 列表管理
-  - 过滤和搜索
-  - 批量操作
-  - 状态持久化
+#### 4. TodoActivity - Complex State Management
+- **Tech Stack**: Jetpack Compose + Complex Business Logic
+- **Complexity**: ⭐⭐⭐⭐
+- **Learning Focus**: 
+  - CRUD operations
+  - List management
+  - Filtering and search
+  - Batch operations
+  - State persistence
 
 ```kotlin
-// 复杂的Todo状态管理
+// Complex Todo state management
 data class TodoState(
     val todos: List<TodoItem> = emptyList(),
     val filter: TodoFilter = TodoFilter.ALL,
@@ -1215,7 +1215,7 @@ data class TodoState(
     val searchQuery: String = ""
 )
 
-// 丰富的业务操作
+// Rich business operations
 class TodoViewModel : BaseMVIViewModel<...> {
     fun addTodo(title: String, description: String = "") { ... }
     fun updateTodo(todo: TodoItem) { ... }
@@ -1225,54 +1225,54 @@ class TodoViewModel : BaseMVIViewModel<...> {
     fun searchTodos(query: String) { ... }
     fun clearCompleted() { ... }
     
-    // 计算属性
+    // Computed properties
     fun getFilteredTodos(state: TodoState): List<TodoItem> { ... }
     fun getStats(state: TodoState): TodoStats { ... }
 }
 ```
 
-### 🎯 运行示例
+### 🎯 Running Examples
 
-1. **克隆项目**
+1. **Clone the project**
    ```bash
    git clone https://github.com/greathousesh/Lucid-MVI.git
    ```
 
-2. **打开Android Studio**
-   - 导入项目
-   - 同步Gradle
+2. **Open Android Studio**
+   - Import project
+   - Sync Gradle
 
-3. **运行应用**
-   - 选择app模块
-   - 运行到设备或模拟器
+3. **Run the application**
+   - Select app module
+   - Run on device or emulator
 
-4. **探索示例**
-   - 从首页选择不同示例
-   - 体验MVI架构的威力
+4. **Explore examples**
+   - Select different examples from home screen
+   - Experience the power of MVI architecture
 
-### 📚 学习路径建议
+### 📚 Suggested Learning Path
 
-1. **初学者**: CounterActivity → CounterComposeActivity
-2. **进阶者**: TodoActivity → 自定义实现
-3. **专家级**: 研究源码 → 贡献代码
+1. **Beginners**: CounterActivity → CounterComposeActivity
+2. **Intermediate**: TodoActivity → Custom implementation
+3. **Expert**: Study source code → Contribute code
 
 ---
 
-## 📞 支持和社区
+## 📞 Support and Community
 
-### 🐛 问题报告
+### 🐛 Issue Reporting
 - [GitHub Issues](https://github.com/greathousesh/Lucid-MVI/issues)
 
-### 💬 讨论和支持
+### 💬 Discussion and Support
 - [GitHub Discussions](https://github.com/greathousesh/Lucid-MVI/discussions)
 
-### 🤝 贡献指南
-- Fork项目
-- 创建feature分支
-- 提交Pull Request
+### 🤝 Contributing
+- Fork the project
+- Create feature branch
+- Submit Pull Request
 
-### 📄 许可证
-Apache 2.0 License - 详见 [LICENSE](LICENSE) 文件
+### 📄 License
+Apache 2.0 License - See [LICENSE](LICENSE) file
 
 ---
 
