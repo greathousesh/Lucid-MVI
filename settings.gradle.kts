@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Simple-MVI"
+rootProject.name = "Lucid-MVI"
 include(":app")
 include(":mvi")

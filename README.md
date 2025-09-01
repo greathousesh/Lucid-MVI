@@ -47,7 +47,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-    implementation("com.github.greathousesh:Simple-MVI:0.0.4")
+    implementation("com.github.greathousesh:Lucid-MVI:0.0.4")
 }
 ```
 
@@ -245,7 +245,7 @@ Add the dependency to your module's `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("com.github.greathousesh:Simple-MVI:0.0.4")
+    implementation("com.github.greathousesh:Lucid-MVI:0.0.4")
 }
 ```
 
