@@ -33,7 +33,7 @@ The latest release of the SDK is available on JitPack.
 Add the following dependency to your gradle file to use it:
 
 ```kotlin
-implementation("com.github.greathousesh:Lucid-MVI:0.0.6")
+implementation("com.github.greathousesh:Lucid-MVI:0.0.7")
 ```
 
 Where `0.0.6` is the most recent version of this SDK.
@@ -229,7 +229,7 @@ Add dependency to your module's `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.github.greathousesh:Lucid-MVI:0.0.6")
+    implementation("com.github.greathousesh:Lucid-MVI:0.0.7")
 }
 ```
 
