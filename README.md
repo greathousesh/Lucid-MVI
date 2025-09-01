@@ -225,7 +225,7 @@ class MainActivity : AppCompatActivity() {
 
 ## 📈 路线图
 
-- [ ] 支持Compose集成
+- [x] 支持Compose集成
 - [ ] 添加调试工具和日志
 - [ ] Kotlin Multiplatform支持
 
@@ -462,7 +462,7 @@ class MainActivity : AppCompatActivity() {
 
 ## 📈 Roadmap
 
-- [ ] Compose integration support
+- [x] Compose integration support
 - [ ] Debug tools and logging
 - [ ] Kotlin Multiplatform support
 
