@@ -57,6 +57,45 @@ dependencies {
 - **目标SDK**: API 36
 - **Kotlin版本**: 2.0.21+
 
+## 📱 示例应用
+
+本项目包含一个完整的示例应用，展示了Lucid MVI在不同场景下的应用：
+
+### 🏠 HomeActivity - 导航首页
+- 统一的入口界面，展示所有可用示例
+- Material 3 设计，响应式布局
+- 清晰的导航卡片，一键跳转到各个示例
+
+### 🧮 CounterActivity - 基础计数器 (传统View)
+- **技术栈**: 传统Android View + ViewBinding
+- **功能**: 基础的增减、重置、保存操作
+- **特点**: 展示MVI在传统View系统中的应用
+- **适合**: 了解MVI基础概念和传统Android开发
+
+### 📱 CounterComposeActivity - 现代计数器 (Jetpack Compose)
+- **技术栈**: Jetpack Compose + Material 3
+- **功能**: 与传统版本相同的计数器功能
+- **特点**: 现代化UI，响应式设计，优雅的状态管理
+- **适合**: 学习Compose与MVI的结合使用
+
+### ✅ TodoActivity - 待办事项管理
+- **技术栈**: Jetpack Compose + 复杂状态管理
+- **功能**: 
+  - ✨ 添加、编辑、删除待办事项
+  - ☑️ 切换完成状态
+  - 🔍 按状态过滤（全部/活跃/已完成）
+  - 📊 实时统计信息
+  - 🧹 批量清除已完成项目
+- **特点**: 展示复杂业务逻辑和CRUD操作
+- **适合**: 理解MVI在实际项目中的应用
+
+### 🎯 运行示例应用
+
+1. 克隆项目并打开Android Studio
+2. 运行app模块
+3. 从首页选择你感兴趣的示例
+4. 体验不同复杂度的MVI实现
+
 ## 🚀 快速开始
 
 ### 1. 定义你的MVI组件
@@ -254,6 +293,45 @@ dependencies {
 - **Minimum Android SDK**: API 24 (Android 7.0)
 - **Target SDK**: API 36
 - **Kotlin Version**: 2.0.21+
+
+## 📱 Demo Application
+
+This project includes a comprehensive demo application showcasing Lucid MVI in different scenarios:
+
+### 🏠 HomeActivity - Navigation Hub
+- Unified entry interface displaying all available examples
+- Material 3 design with responsive layout
+- Clear navigation cards for one-click access to each demo
+
+### 🧮 CounterActivity - Basic Counter (Traditional Views)
+- **Tech Stack**: Traditional Android Views + ViewBinding
+- **Features**: Basic increment, decrement, reset, and save operations
+- **Highlights**: Demonstrates MVI in traditional View system
+- **Best For**: Understanding MVI basics and traditional Android development
+
+### 📱 CounterComposeActivity - Modern Counter (Jetpack Compose)
+- **Tech Stack**: Jetpack Compose + Material 3
+- **Features**: Same counter functionality as traditional version
+- **Highlights**: Modern UI, reactive design, elegant state management
+- **Best For**: Learning Compose integration with MVI
+
+### ✅ TodoActivity - Todo List Management
+- **Tech Stack**: Jetpack Compose + Complex State Management
+- **Features**: 
+  - ✨ Add, edit, delete todo items
+  - ☑️ Toggle completion status
+  - 🔍 Filter by status (All/Active/Completed)
+  - 📊 Real-time statistics
+  - 🧹 Batch clear completed items
+- **Highlights**: Demonstrates complex business logic and CRUD operations
+- **Best For**: Understanding MVI in real-world applications
+
+### 🎯 Running the Demo App
+
+1. Clone the project and open in Android Studio
+2. Run the app module
+3. Select the example you're interested in from the home screen
+4. Experience different levels of MVI implementation complexity
 
 ## 🚀 Quick Start
 

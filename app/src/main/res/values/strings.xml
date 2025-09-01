@@ -2,10 +2,33 @@
 <resources>
     <string name="app_name">MVI Demo</string>
     <string name="counter_title">MVI Counter Demo</string>
+    <string name="counter_title_compose">MVI Compose Demo</string>
+    <string name="view_compose_demo">View Compose Demo</string>
+    <string name="view_todo_demo">View Todo Demo</string>
+    
+    <!-- Home Screen -->
+    <string name="welcome_title">Welcome to Lucid MVI</string>
+    <string name="welcome_subtitle">Explore different examples of MVI architecture implementation</string>
+    <string name="choose_demo">Choose a Demo</string>
+    
+    <!-- Demo Cards -->
+    <string name="counter_demo_title">Counter Demo</string>
+    <string name="counter_demo_description">Basic MVI implementation with traditional Views</string>
+    <string name="compose_demo_title">Compose Counter</string>
+    <string name="compose_demo_description">Modern UI with Jetpack Compose and MVI</string>
+    <string name="todo_demo_title">Todo List</string>
+    <string name="todo_demo_description">Complex state management with CRUD operations</string>
+    
+    <!-- About Section -->
+    <string name="about_title">About This Demo</string>
+    <string name="about_description">This app demonstrates the power and flexibility of the Lucid MVI architecture pattern across different UI technologies and complexity levels.</string>
+    <string name="mvi_version">Lucid MVI v0.0.6</string>
+    
     <string name="increment">+</string>
     <string name="decrement">-</string>
     <string name="reset">Reset</string>
     <string name="save">Save Count</string>
+    <string name="loading">Loading...</string>
     <string name="count_saved">Count saved successfully!</string>
     <string name="error_occurred">Error: %1$s</string>
 </resources>

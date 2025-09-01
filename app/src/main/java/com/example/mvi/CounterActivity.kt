@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.mvi.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class CounterActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityMainBinding
     private val viewModel: CounterViewModel by viewModels()

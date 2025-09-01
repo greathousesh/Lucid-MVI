@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MVIDemo"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.MVIDemo">
             <intent-filter>
@@ -21,6 +21,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name=".CounterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MVIDemo" />
+        
+        <activity
+            android:name=".CounterComposeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MVIDemo" />
+            
+        <activity
+            android:name=".TodoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MVIDemo" />
     </application>
 
 </manifest>
