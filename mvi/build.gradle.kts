@@ -49,7 +49,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.greathouse"
                 artifactId = "mvi"
-                version = "0.0.3"
+                version = "0.0.4"
                 
                 pom {
                     name.set("MVI Library")
