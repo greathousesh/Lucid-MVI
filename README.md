@@ -47,7 +47,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-    implementation("com.greathouse:mvi:0.0.1")
+    implementation("com.greathouse:mvi:0.0.3")
 }
 ```
 
@@ -245,7 +245,7 @@ Add the dependency to your module's `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("com.greathouse:mvi:0.0.1")
+    implementation("com.greathouse:mvi:0.0.3")
 }
 ```
 
