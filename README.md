@@ -21,6 +21,8 @@ It provides managed integration with reactive state management, predictable unid
 * 🧪 **Built-in testing support** with pure functional components
 * 📱 **Jetpack Compose ready** with first-class integration
 * ⚡ **Coroutines-based** async operations and effect handling
+* 🔧 **Powerful middleware system** for logging, validation, and debugging
+* 🕰️ **Time-travel debugging** for state history navigation and replay
 
 ## Usage
 
@@ -45,11 +47,16 @@ You can create your MVI components using the `BaseMVIViewModel` class like this:
 ```kotlin
 val viewModel = CounterViewModel(
     reducer = CounterReducer(),
-    effectHandler = CounterEffectHandler()
+    effectHandler = CounterEffectHandler(),
+    middleware = buildMiddleware {
+        logging("MyApp")
+        timeTravel(maxHistorySize = 50)
+        validation { state, action -> validateAction(state, action) }
+    }
 )
 ```
 
-Where `CounterViewModel` extends `BaseMVIViewModel` with your state, actions, effects, and events. The framework provides managed integration with reactive state management and automatic lifecycle handling.
+Where `CounterViewModel` extends `BaseMVIViewModel` with your state, actions, effects, and events. The framework provides managed integration with reactive state management, automatic lifecycle handling, and powerful middleware support for debugging and development.
 
 _Note: The Lucid MVI framework has been designed to work as ViewModels in your Activities/Fragments. Each ViewModel instance manages its own state independently._
 
@@ -107,11 +114,78 @@ viewModel.eventFlow.collect { event ->
 }
 ```
 
-### Logging
+### Middleware System
 
-By default, the Lucid MVI SDK provides structured logging for state changes and effect processing. You can customize logging behavior through the ViewModel configuration.
+Lucid MVI includes a powerful middleware system that allows you to intercept and process actions before they reach the reducer. This enables advanced debugging, logging, validation, and development tools.
 
-To enable detailed logging for debugging, you can override logging methods in your ViewModel implementation.
+```kotlin
+class MyViewModel : BaseMVIViewModel<MyState, MyAction, MyEffect, MyEvent>(
+    reducer = MyReducer(),
+    effectHandler = MyEffectHandler(),
+    middleware = buildMiddleware {
+        // Log all actions and state changes
+        logging("MyApp", logLevel = Log.DEBUG, logState = true)
+        
+        // Enable time-travel debugging
+        timeTravel(maxHistorySize = 100)
+        
+        // Validate actions before processing
+        validation({ state, action ->
+            when (action) {
+                is MyAction.InvalidAction -> "This action is not allowed"
+                else -> null
+            }
+        })
+        
+        // Filter actions based on conditions
+        filter { state, action ->
+            when (action) {
+                is MyAction.RestrictedAction -> state.isUserAuthorized
+                else -> true
+            }
+        }
+        
+        // Transform actions before they reach the reducer
+        transform { state, action ->
+            when (action) {
+                is MyAction.LegacyAction -> MyAction.NewAction(action.data)
+                else -> action
+            }
+        }
+    }
+)
+```
+
+### Time-Travel Debugging
+
+The time-travel middleware provides powerful debugging capabilities by recording all state changes and allowing you to navigate through your app's history:
+
+```kotlin
+// Access time travel functionality
+val timeTravelMiddleware = viewModel.getTimeTravelMiddleware()
+
+// Navigate through history
+timeTravelMiddleware?.stepBack()        // Go back one step
+timeTravelMiddleware?.stepForward()     // Go forward one step
+timeTravelMiddleware?.jumpToState(5)    // Jump to specific state
+timeTravelMiddleware?.clearHistory()    // Clear history
+
+// Access history for debugging
+val history = timeTravelMiddleware?.history ?: emptyList()
+history.forEach { snapshot ->
+    println("Action: ${snapshot.action}, State: ${snapshot.state}")
+}
+```
+
+### Built-in Middleware
+
+- **LoggingMiddleware**: Logs all actions and state changes for debugging
+- **TimeTravelMiddleware**: Records state history for time-travel debugging
+- **ValidationMiddleware**: Validates actions before they reach the reducer
+- **ActionTransformMiddleware**: Transforms actions before processing
+- **ActionFilterMiddleware**: Filters actions based on predicates
+
+For detailed middleware documentation, see [MIDDLEWARE.md](MIDDLEWARE.md).
 
 ## Demo Application
 
@@ -123,6 +197,7 @@ This repository includes a comprehensive demo app showcasing MVI in action:
 | 🧮 **CounterActivity** | Traditional Views | ⭐⭐ | MVI basics & state management |
 | 📱 **CounterComposeActivity** | Jetpack Compose | ⭐⭐⭐ | Modern UI with MVI |
 | ✅ **TodoActivity** | Complex State Logic | ⭐⭐⭐⭐ | Real-world MVI patterns |
+| 🕰️ **TimeTravelDebugActivity** | Middleware & Debugging | ⭐⭐⭐⭐⭐ | Advanced debugging tools |
 
 ### Screenshots
 <p align="center">
@@ -237,7 +312,11 @@ class CounterEffectHandler : EffectHandler<CounterState, CounterAction, CounterE
 ```kotlin
 class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEffect, CounterEvent>(
     reducer = CounterReducer(),
-    effectHandler = CounterEffectHandler()
+    effectHandler = CounterEffectHandler(),
+    middleware = buildMiddleware {
+        logging("CounterApp")
+        timeTravel(maxHistorySize = 50)
+    }
 ) {
     override fun initialState(): CounterState = CounterState()
     
@@ -246,6 +325,11 @@ class CounterViewModel : BaseMVIViewModel<CounterState, CounterAction, CounterEf
     fun decrement() = sendAction(CounterAction.Decrement)
     fun reset() = sendAction(CounterAction.Reset)
     fun saveCount() = sendEffect(CounterEffect.SaveCount)
+    
+    // Time travel debugging methods
+    fun getTimeTravelMiddleware() = getMiddleware() as? TimeTravelMiddleware<CounterState, CounterAction>
+    fun stepBack() = getTimeTravelMiddleware()?.stepBack()
+    fun stepForward() = getTimeTravelMiddleware()?.stepForward()
 }
 ```
 
@@ -380,11 +464,15 @@ Lucid MVI follows a strict unidirectional data flow:
 ## Roadmap
 
 - [x] ~~Compose integration support~~
-- [ ] Debug tools and logging
+- [x] ~~Debug tools and logging~~
+- [x] ~~Middleware system~~
+- [x] ~~Time-travel debugging~~
 - [ ] Kotlin Multiplatform support
 - [ ] State persistence helpers
 - [ ] Testing utilities
 - [ ] Performance monitoring tools
+- [ ] DevTools browser extension
+- [ ] State diff visualization
 
 
 ## About
@@ -411,11 +499,13 @@ Lucid MVI is a modern Android architecture framework that brings predictable sta
 
 ### Resources
 
-- 📖 [**Complete Wiki**](WIKI.md) - Comprehensive framework documentation
+- 📖 [**Complete Wiki**](https://github.com/greathousesh/Lucid-MVI/wiki) - Comprehensive framework documentation
 - 🎯 [**Quick Start Guide**](#quick-start) - Get up and running in 5 minutes
-- 🏗️ [**Architecture Guide**](WIKI.md#architecture-deep-dive) - Deep dive into MVI patterns
-- 🧪 [**Testing Guide**](WIKI.md#best-practices) - Best practices for testing MVI
-- 📱 [**Compose Integration**](WIKI.md#quick-start) - Modern UI with Jetpack Compose
+- 🏗️ [**Architecture Guide**](https://github.com/greathousesh/Lucid-MVI/wiki#architecture-deep-dive) - Deep dive into MVI patterns
+- 🧪 [**Testing Guide**](https://github.com/greathousesh/Lucid-MVI/wiki#best-practices) - Best practices for testing MVI
+- 📱 [**Compose Integration**](https://github.com/greathousesh/Lucid-MVI/wiki#quick-start) - Modern UI with Jetpack Compose
+- 🔧 [**Middleware Guide**](MIDDLEWARE.md) - Advanced debugging and development tools
+- 🕰️ [**Time-Travel Debugging**](MIDDLEWARE.md#time-travel-debugging) - State history navigation and replay
 
 ### License
 
