@@ -1,4 +1,4 @@
-# <img src="m-icon.svg" alt="MVI" width="32" height="32" align="center"> Simple MVI
+# <img src="m-icon.svg" alt="MVI" width="32" height="32" align="center"> Lucid MVI
 
 [![GitHub release](https://img.shields.io/github/v/release/greathousesh/Simple-MVI)](https://github.com/greathousesh/Simple-MVI/releases)
 [![JitPack](https://jitpack.io/v/greathousesh/Simple-MVI.svg)](https://jitpack.io/#greathousesh/Simple-MVI)
