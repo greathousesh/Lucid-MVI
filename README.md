@@ -3,6 +3,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/greathousesh/Lucid-MVI)](https://github.com/greathousesh/Lucid-MVI/releases)
 [![JitPack](https://jitpack.io/v/greathousesh/Lucid-MVI.svg)](https://jitpack.io/#greathousesh/Lucid-MVI)
 [![Kotlin](https://img.shields.io/badge/kotlin-2.0.21-blue.svg?logo=kotlin)](https://kotlinlang.org)
+[![Coroutines](https://img.shields.io/badge/Coroutines-1.9.0-orange.svg?logo=kotlin)](https://kotlinlang.org/docs/coroutines-overview.html)
 [![Android API](https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=24)
 [![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-1.7.6-4285F4.svg?logo=jetpackcompose)](https://developer.android.com/jetpack/compose)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
