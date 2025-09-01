@@ -14,7 +14,8 @@ import kotlinx.coroutines.withContext
 
 abstract class BaseMVIViewModel<State, Action, Effect, Event>(
     private val reducer: StateReducer<State, Action>,
-    private val effectHandler: EffectHandler<State, Action, Effect, Event>
+    private val effectHandler: EffectHandler<State, Action, Effect, Event>,
+    private val middleware: Middleware<State, Action>? = null
 ) : ViewModel() {
 
     private val _stateFlow = MutableStateFlow(initialState())
@@ -46,7 +47,15 @@ abstract class BaseMVIViewModel<State, Action, Effect, Event>(
     protected abstract fun initialState(): State
 
     private suspend fun handleAction(action: Action) {
-        setState { reducer.reduce(this, action) }
+        val newState = if (middleware != null) {
+            middleware.process(latestState, action) { processedAction ->
+                reducer.reduce(latestState, processedAction)
+            }
+        } else {
+            reducer.reduce(latestState, action)
+        }
+        
+        _stateFlow.emit(newState)
     }
 
     private suspend fun handleEffect(effect: Effect) {
@@ -60,10 +69,7 @@ abstract class BaseMVIViewModel<State, Action, Effect, Event>(
         }
     }
 
-    protected suspend fun setState(reducer: State.() -> State) {
-        val newState = latestState.reducer()
-        _stateFlow.emit(newState)
-    }
+
 
     fun sendAction(action: Action) {
         viewModelScope.launch { actionChannel.send(action) }
@@ -72,6 +78,12 @@ abstract class BaseMVIViewModel<State, Action, Effect, Event>(
     fun sendEffect(effect: Effect) {
         viewModelScope.launch { effectChannel.send(effect) }
     }
+    
+    /**
+     * Get the middleware instance if available.
+     * Useful for accessing middleware-specific functionality like time travel debugging.
+     */
+    fun getMiddleware(): Middleware<State, Action>? = middleware
 
     override fun onCleared() {
         super.onCleared()

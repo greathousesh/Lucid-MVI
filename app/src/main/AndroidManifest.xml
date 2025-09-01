@@ -36,6 +36,11 @@
             android:name=".TodoActivity"
             android:exported="false"
             android:theme="@style/Theme.MVIDemo" />
+            
+        <activity
+            android:name=".TimeTravelDebugActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MVIDemo" />
     </application>
 
 </manifest>

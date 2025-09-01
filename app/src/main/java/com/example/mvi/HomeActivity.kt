@@ -128,6 +128,20 @@ fun HomeScreen() {
                 }
             )
             
+            Spacer(modifier = Modifier.height(12.dp))
+            
+            // Time Travel Debug Card
+            DemoCard(
+                title = "Time Travel Debug",
+                description = "Middleware showcase with time travel debugging",
+                icon = Icons.Default.History,
+                backgroundColor = MaterialTheme.colorScheme.errorContainer,
+                contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                onClick = {
+                    context.startActivity(Intent(context, TimeTravelDebugActivity::class.java))
+                }
+            )
+            
             Spacer(modifier = Modifier.height(32.dp))
             
             // About Section
