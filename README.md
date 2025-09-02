@@ -9,6 +9,15 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Build Status](https://github.com/greathousesh/Lucid-MVI/workflows/Publish%20AAR%20to%20GitHub%20Packages/badge.svg)](https://github.com/greathousesh/Lucid-MVI/actions)
 
+### Screenshots
+<p align="center">
+  <img src="Screenshot_20250901_164209.png" alt="Home Activity - Navigation Hub with Time Travel Debug" width="160"/>
+  <img src="Screenshot_20250901_145044.png" alt="Counter Activity - Traditional Views" width="160"/>
+  <img src="Screenshot_20250901_145053.png" alt="Counter Compose Activity - Modern UI" width="160"/>
+  <img src="Screenshot_20250901_145103.png" alt="Todo Activity - Complex State Management" width="160"/>
+  <img src="Screenshot_20250901_164222.png" alt="Time Travel Debug Activity - Advanced Debugging Tools" width="160"/>
+</p>
+
 This is the Android SDK for **Lucid MVI**, a lightweight, reactive, and type-safe MVI (Model-View-Intent) architecture framework designed for modern Android development.
 
 **Built for Scale**: Lucid MVI is engineered to handle projects of any size - from simple apps to complex enterprise applications. Its flexible architecture and powerful middleware system make it the perfect choice for large-scale projects that demand maintainability, testability, and team collaboration.
@@ -202,15 +211,6 @@ This repository includes a comprehensive demo app showcasing MVI in action:
 | 📱 **CounterComposeActivity** | Jetpack Compose | ⭐⭐⭐ | Modern UI with MVI |
 | ✅ **TodoActivity** | Complex State Logic | ⭐⭐⭐⭐ | Real-world MVI patterns |
 | 🕰️ **TimeTravelDebugActivity** | Middleware & Debugging | ⭐⭐⭐⭐⭐ | Advanced debugging tools |
-
-### Screenshots
-<p align="center">
-  <img src="Screenshot_20250901_164209.png" alt="Home Activity - Navigation Hub with Time Travel Debug" width="160"/>
-  <img src="Screenshot_20250901_145044.png" alt="Counter Activity - Traditional Views" width="160"/>
-  <img src="Screenshot_20250901_145053.png" alt="Counter Compose Activity - Modern UI" width="160"/>
-  <img src="Screenshot_20250901_145103.png" alt="Todo Activity - Complex State Management" width="160"/>
-  <img src="Screenshot_20250901_164222.png" alt="Time Travel Debug Activity - Advanced Debugging Tools" width="160"/>
-</p>
 
 ## Installation
 
