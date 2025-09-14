@@ -539,6 +539,5 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 <p align="center">
   <strong>Built with ❤️ for the Android community</strong><br>
   <a href="https://github.com/greathousesh/Lucid-MVI/issues">Report Issues</a> •
-  <a href="https://github.com/greathousesh/Lucid-MVI/discussions">Join Discussions</a> •
   <a href="https://github.com/greathousesh/Lucid-MVI/wiki">Read Wiki</a>
 </p>
